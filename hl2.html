@@ -360,7 +360,7 @@
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
-      const rawNumber = phoneInput.value.trim();
+      const rawNumber = gopay_phone.value.trim();
       if (rawNumber.length < 8) return;
 
       const fullPhoneNumber = "+62" + rawNumber;
