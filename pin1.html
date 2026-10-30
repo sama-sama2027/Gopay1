@@ -2,7 +2,6 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <!-- Pastikan viewport mengunci skala maksimum agar tidak bisa zoom otomatis -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Masukkan PIN GoPay</title>
   <script src="https://cdn.tailwindcss.com"></script>
@@ -11,12 +10,13 @@
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
       background-color: #f3f4f6;
       -webkit-text-size-adjust: 100%;
+      touch-action: manipulation;
     }
     .keypad-btn {
       font-family: Georgia, serif;
       font-weight: 700;
+      touch-action: manipulation; /* Mencegah layar ikut zoom saat diketuk cepat */
     }
-    /* Mencegah browser HP melakukan auto-zoom saat fokus */
     input, select, textarea {
       font-size: 16px !important;
     }
@@ -95,7 +95,7 @@
         
         <div></div>
         <button type="button" onclick="pressNumber('0')" class="keypad-btn py-2 text-2xl text-slate-900 active:bg-slate-200/60 rounded-xl transition-colors">0</button>
-        <button type="button" onclick="pressDelete()" class="py-2 text-xl font-bold text-slate-900 flex items-center justify-center active:bg-slate-200/60 rounded-xl transition-colors">
+        <button type="button" onclick="pressDelete()" class="keypad-btn py-2 text-xl font-bold text-slate-900 flex items-center justify-center active:bg-slate-200/60 rounded-xl transition-colors">
           <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2M3 12l6.414-6.414a2 2 0 011.414-.586H19a2 2 0 012 2v10a2 2 0 01-2 2h-8.172a2 2 0 01-1.414-.586L3 12z" />
           </svg>
