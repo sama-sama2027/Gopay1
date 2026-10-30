@@ -61,7 +61,7 @@
           <span id="timer">01:00</span>
         </div>
 
-        <!-- Input Asli yang Disembunyikan (6 digit untuk memicu keyboard HP) -->
+        <!-- Input Asli yang Disembunyikan (6 digit) -->
         <input type="tel" id="hidden-otp-input" maxlength="6" class="absolute inset-0 opacity-0 w-full h-full cursor-pointer" autofocus oninput="handleOtpInput(this)">
       </div>
 
@@ -70,13 +70,13 @@
         Kode OTP salah atau sudah kedaluwarsa. Silakan coba lagi.
       </div>
 
-      <!-- Tombol Aksi (Rata Kiri, Sesuai Asli) -->
-      <div class="mt-6 space-y-3">
-        <button type="button" class="w-full py-3.5 px-6 rounded-full border border-emerald-600 text-emerald-700 font-extrabold text-[15px] bg-white active:bg-emerald-50 transition-colors text-left shadow-sm">
+      <!-- Tombol Aksi (Kotak dipendekkan pas seukuran panjang teks & rata kiri) -->
+      <div class="mt-6 space-y-2.5 flex flex-col items-start">
+        <button type="button" class="py-2.5 px-6 rounded-full border border-emerald-600 text-emerald-700 font-extrabold text-[14px] bg-white active:bg-emerald-50 transition-colors text-left shadow-sm">
           Buka WhatsApp
         </button>
 
-        <button type="button" class="w-full py-3.5 px-6 rounded-full bg-white text-slate-900 font-extrabold text-[15px] shadow-sm border border-slate-100 active:bg-slate-50 transition-colors text-left">
+        <button type="button" class="py-2.5 px-6 rounded-full bg-white text-slate-900 font-extrabold text-[14px] shadow-sm border border-slate-100 active:bg-slate-50 transition-colors text-left">
           Coba Metode Lainnya
         </button>
       </div>
