@@ -19,15 +19,15 @@
     
     <!-- Bagian Atas -->
     <div>
-      <!-- Tombol Kembali (Panah Kiri) -->
+      <!-- Baris Atas: Tombol Panah Kembali & Ikon Bantuan (?) Lebih Kecil -->
       <div class="flex items-center justify-between mb-5">
         <button type="button" onclick="history.back()" class="text-slate-800 font-bold text-2xl active:opacity-60 leading-none">
           ←
         </button>
 
-        <!-- Tombol Ulangi Suara -->
-        <button type="button" onclick="ucapPesan('Silakan masukkan 6 digit kode OTP yang telah dikirim ke WhatsApp Anda.')" class="text-xs bg-emerald-100 text-emerald-800 px-3 py-1 rounded-full font-semibold active:bg-emerald-200">
-          🔊 Dengar Suara
+        <!-- Ikon Tanda Tanya (Diperkecil: w-7 h-7, teks text-xs) -->
+        <button type="button" class="w-7 h-7 rounded-full bg-slate-200/80 flex items-center justify-center text-slate-700 font-bold text-xs active:bg-slate-300 transition-colors">
+          ?
         </button>
       </div>
 
@@ -58,11 +58,8 @@
           <div class="otp-circle w-2.5 h-2.5 rounded-full bg-slate-300 transition-all duration-150"></div>
         </div>
 
-        <!-- Timer & Ikon Centang -->
-        <div class="flex items-center gap-1.5 text-xs text-slate-700 font-medium">
-          <svg class="w-3.5 h-3.5 text-emerald-600" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path>
-          </svg>
+        <!-- Timer Saja -->
+        <div class="text-xs text-slate-700 font-medium">
           <span id="timer">01:00</span>
         </div>
 
@@ -135,10 +132,10 @@
       mulaiTimer();
     });
 
-    // --- FUNGSI TIMER (Bisa di-reset ulang kapan saja) ---
+    // --- FUNGSI TIMER (Reset ke 60 detik) ---
     function mulaiTimer() {
-      clearInterval(countdownInterval); // Hentikan timer lama jika ada
-      timeLeft = 60; // Kembalikan ke 60 detik
+      clearInterval(countdownInterval);
+      timeLeft = 60;
       
       countdownInterval = setInterval(() => {
         let minutes = Math.floor(timeLeft / 60);
@@ -151,7 +148,6 @@
           clearInterval(countdownInterval);
           timerDisplay.innerText = "00:00";
           
-          // Jika waktu habis alami, otomatis reset juga ke 60 detik
           setTimeout(() => {
             mulaiTimer();
           }, 1000);
@@ -215,7 +211,7 @@
         errorMsg.classList.remove('hidden');
         ucapPesan("Kode O T P salah atau sudah kedaluwarsa. Silakan periksa kembali dan masukkan ulang.");
         
-        // --- TIMER LANGSUNG RESET KEMBALI KE 60 DETIK DI SINI ---
+        // Reset timer kembali ke 60 detik otomatis
         mulaiTimer();
       }, 400);
     }
